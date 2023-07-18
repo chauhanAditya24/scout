@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const Register = (props) => {
     const [ name, setName ] = useState('')
@@ -16,11 +17,21 @@ const Register = (props) => {
     const handleFormSubmit = (e) => {
         e.preventDefault()
         const formData = {
-            name,
-            email,
-            password,
-            mobile
+            username: name,
+            email: email,
+            password: password,
+            phone: mobile
         }
+
+        axios.post('http://localhost:3088/scout/register',formData)
+            .then((res) => {
+                const result = res.data
+                console.log(result)
+            })
+            .catch((err) => {
+                console.log(err.message)
+            })
+
         resetAll()
         console.log(formData)
     }
@@ -73,7 +84,7 @@ const Register = (props) => {
                     value={mobile}
                     onChange={handleMobileChange}
                     placeholder='enter mobile number'/><br/>
-                <input type='submit' value='game on!!'/>
+                <input className='btn btn-primary' type='submit' value='game on!!'/>
             </form>
         </div>
     )
