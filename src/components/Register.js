@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 const Register = (props) => {
     const [ name, setName ] = useState('')
@@ -34,6 +35,7 @@ const Register = (props) => {
 
         resetAll()
         console.log(formData)
+        props.history.push('/login')
     }
 
     const handleMobileChange = (e) => {
@@ -86,6 +88,9 @@ const Register = (props) => {
                     placeholder='enter mobile number'/><br/>
                 <input className='btn btn-primary' type='submit' value='game on!!'/>
             </form>
+
+            <span><Link to='/grounds/register'> register ground </Link></span>
+
         </div>
     )
 }
