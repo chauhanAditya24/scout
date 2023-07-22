@@ -1,5 +1,6 @@
 import React from 'react'
 import {useState} from 'react'
+import axios from 'axios'
 
 const RegisterGround = (props) => {
     const [ name, setName ] = useState('')
@@ -17,7 +18,21 @@ const RegisterGround = (props) => {
             price,
             timings
         }
-        console.log(formData)
+        // console.log(formData)
+
+        axios.post('http://localhost:3088/scout/grounds/register',formData)
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err.message)
+            })
+
+        setCity('')
+        setName('')
+        setLocation('')
+        setPrice('')
+        setTimings('')
 
     }
 
@@ -38,7 +53,7 @@ const RegisterGround = (props) => {
     return (
         <div>
             <h1>register ground</h1>
-            <from onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <label>Ground name : </label>
                 <input type='text' 
                     name='name'
@@ -75,7 +90,7 @@ const RegisterGround = (props) => {
                     placeholder='enter the timings'
                 /><br/>
                 <input type='submit' value='register ground'/>
-            </from>
+            </form>
         </div>
 
     )
