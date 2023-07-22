@@ -7,18 +7,18 @@ const Login = (props) => {
     const [ radio , setRadio ] = useState('')
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         const formData = {
             email,
             password,
             radio
         }
         console.log(formData)
-        console.log(props)
+        // console.log(props)
         setEmail('')
         setRadio('')
         setPassword('')
-        // props.history.push('')
+        // props.history.push('/home')
     }
 
     const handleChange = (e) => {
