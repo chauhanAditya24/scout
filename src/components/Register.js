@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import validator from 'validator'
 import {Link} from 'react-router-dom'
 
 const Register = (props) => {
@@ -7,6 +8,9 @@ const Register = (props) => {
     const [ password, setPassword ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ mobile, setMobile ] = useState('')
+    const [ check , setCheck ] = useState(false)
+    const [ formErrors , setFormErrors ] = useState({})
+    const errors = {}
 
     const resetAll = () => {
         setName('')
@@ -15,51 +19,73 @@ const Register = (props) => {
         setEmail('')
     }
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault()
-        const formData = {
-            username: name,
-            email: email,
-            password: password,
-            phone: mobile
+    const formValidation = () => {
+        if(name.trim().length === 0){
+            errors.name = 'name cannot be blank'
         }
 
-        axios.post('http://localhost:3088/scout/register',formData)
-            .then((res) => {
-                const result = res.data
-                console.log(result)
-            })
-            .catch((err) => {
-                console.log(err.message)
-            })
+        if(email.trim().length === 0){
+            errors.email = 'email cannot be blank'
+        }else if(! validator.isEmail(email.trim())){
+            errors.email = 'incorrect email'
+        }
 
-        resetAll()
-        console.log(formData)
-        props.history.push('/login')
+        if(mobile.trim().length === 0){
+            errors.mobile = 'mobile number cannot be blank'
+        }
+
+        if(password.trim().length === 0){
+            errors.password = 'password cannot be blank'
+        }
     }
 
-    const handleMobileChange = (e) => {
-        const ans = e.target.value
-        console.log(ans)
-        setMobile(ans)
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+
+        formValidation()
+
+        if(Object.keys(errors).length === 0){
+            setFormErrors({})
+
+            const formData = {
+                username: name,
+                email: email,
+                password: password,
+                phone: mobile
+            }
+            console.log(formData)
+            resetAll()
+        }else{
+            setFormErrors(errors)
+        }
+
+
+        // axios.post('http://localhost:3088/scout/register',formData)
+        //     .then((res) => {
+        //         const result = res.data
+        //         console.log(result)
+        //     })
+        //     .catch((err) => {
+        //         console.log(err.message)
+        //     })
+
+        
+        // props.history.push('/login')
     }
 
-    const handlePasswordChange = (e) => {
-        const ans = e.target.value
-        console.log(ans)
-        setPassword(ans)
-    }
-
-    const handleEmailChange = (e) => {
-        const ans = e.target.value
-        console.log(ans)
-        setEmail(ans)
-    }
-
-    const handleNameChange = (e) => {
-        console.log(e.target.value)
-        const ans = e.target.value
-        setName(ans)
+    const handleChange = (e) => {
+        if(e.target.name === 'mobile'){
+            setMobile(e.target.value)
+        }else if(e.target.name === 'name'){
+            setName(e.target.value)
+        }else if(e.target.name === 'email'){
+            setEmail(e.target.value)
+        }else if(e.target.name === 'password'){
+            setPassword(e.target.value)
+        }else if(e.target.name === 'checkbox'){
+            const ans = !check
+            setCheck(ans)
+        }
     }
 
     return (
@@ -68,25 +94,42 @@ const Register = (props) => {
             <form onSubmit={handleFormSubmit}>
                 <label>Name : </label>
                 <input type='text'
+                    name='name'
                     value={name} 
-                    onChange={handleNameChange} 
-                    placeholder='enter username'/><br/>
+                    onChange={handleChange} 
+                    placeholder='enter username'/>   
+                { formErrors.name && <span style={{color: 'red'}}> {formErrors.name} </span>}    
+                <br/>
                 <label>Email : </label>
                 <input type='text'
+                    name='email'
                     value={email}
-                    onChange={handleEmailChange}
-                    placeholder='enter email'/><br/>
+                    onChange={handleChange}
+                    placeholder='enter email'/>
+                    { formErrors.email && <span style={{color: 'red'}}> {formErrors.email} </span>}
+                <br/>
                 <label>Password : </label>
                 <input type='password'
+                    name='password'
                     value={password}
-                    onChange={handlePasswordChange}
-                    placeholder='enter your password'/><br/>
+                    onChange={handleChange}
+                    placeholder='enter your password'/>
+                    { formErrors.password && <span style={{color: 'red'}}> {formErrors.password} </span>}
+                <br/>
                 <label>Mobile : </label>
                 <input type='number'
+                    name='mobile'
                     value={mobile}
-                    onChange={handleMobileChange}
-                    placeholder='enter mobile number'/><br/>
-                <input className='btn btn-primary' type='submit' value='game on!!'/>
+                    onChange={handleChange}
+                    placeholder='enter mobile number'/>
+                    { formErrors.mobile && <span style={{color: 'red'}}> {formErrors.mobile} </span>}    
+                <br/>
+                <input type='checkbox'
+                    name='checkbox'
+                    checked={check}
+                    onChange={handleChange}
+                /> I accept the terms and conditions<br/>
+                <input className='btn btn-primary' type='submit' disabled={!check} value='game on!!'/>
             </form>
 
             <span><Link to='/grounds/register'> register ground </Link></span>

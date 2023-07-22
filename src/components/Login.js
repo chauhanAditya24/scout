@@ -1,23 +1,52 @@
 import React from 'react'
 import {useState} from 'react'
+import validator from 'validator'
 
 const Login = (props) => {
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ radio , setRadio ] = useState('')
 
-    const handleSubmit = (e) => {
-        // e.preventDefault()
-        const formData = {
-            email,
-            password,
-            radio
+    const [ formErrors , setFormErrors] = useState({})
+    const errors = {}
+
+    const fromValidations = () => {
+        if(email.trim().length === 0){
+            errors.email = 'email cannot be blank'
+        }else if(!validator.isEmail(email.trim())){
+            errors.email = 'invalid email'
         }
-        console.log(formData)
+
+        if(password.trim().length === 0){
+            errors.password = 'password cannot be blank'
+        }
+
+        if(radio === ''){
+            errors.radio = 'must select one role'
+        }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        fromValidations()
+
+        if(Object.keys(errors).length === 0){
+            setFormErrors({})
+            const formData = {
+                email,
+                password,
+                radio
+            }
+            console.log(formData)
+        }else {
+            setFormErrors(errors)
+        }
+
         // console.log(props)
-        setEmail('')
-        setRadio('')
-        setPassword('')
+        // setEmail('')
+        // setRadio('')
+        // setPassword('')
         // props.history.push('/home')
     }
 
@@ -41,26 +70,31 @@ const Login = (props) => {
                     placeholder='enter your email' 
                     onChange={handleChange}
                     name='email'
-                /><br/>
+                />
+                {formErrors.email && <span style={{color: 'red'}}> {formErrors.email} </span> }
+                <br/>
                 <label> Password : </label>
                 <input type='password' 
                     value={password} 
                     placeholder='enter password' 
                     onChange={handleChange}
                     name='password'
-                /><br/>
+                />
+                {formErrors.password && <span style={{color: 'red'}}> {formErrors.password} </span> }
+                <br/>
                 <input type='radio' 
                     name='userType' 
                     value='player' 
                     checked={radio === 'player'} 
                     onChange={handleChange}
-                /> player 
+                /> player  
                 <input type='radio'
                     name='userType'
                     value='manager'
                     checked={radio === 'manager'}
                     onChange={handleChange}    
-                /> manager
+                /> manager<br/>
+                {formErrors.radio && <span style={{color: 'red'}}> {formErrors.radio} <br/></span> }
                 <input type='submit' value=' Login in'/>
             </form>
 
