@@ -1,26 +1,17 @@
 import React from "react"
-import { useState, useEffect } from "react"
-import axios from 'axios'
+import { useSelector } from "react-redux"
 
 const EditDetails = (props) => {
 
-    const [ user , setUsers] = useState({})
-    const id = '64b51d341c84438e8b69fd78'
+    const users = useSelector( (state) => {
+        return state.users.allUsers
+    })
 
-    useEffect(() => {
-        axios.get(`http://localhost:3088/scout/show/${id}`)
-            .then(( res ) => {
-                console.log(res)
-                setUsers(res.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    } , [])
+    console.log(users)
 
     return (
         <div>
-            <h1>{user.username}</h1>
+            <h1>listing users {users.length}</h1>
         </div>
     )
 }
