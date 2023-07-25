@@ -1,6 +1,8 @@
 import React from 'react'
 import {useState} from 'react'
 import validator from 'validator'
+import {useDispatch} from 'react-redux'
+import {startUserLogin} from '../actions/usersAction'
 
 const Login = (props) => {
     const [ email, setEmail ] = useState('')
@@ -9,6 +11,8 @@ const Login = (props) => {
 
     const [ formErrors , setFormErrors] = useState({})
     const errors = {}
+
+    const dispatch = useDispatch()
 
     const fromValidations = () => {
         if(email.trim().length === 0){
@@ -36,18 +40,19 @@ const Login = (props) => {
             const formData = {
                 email,
                 password,
-                radio
             }
-            console.log(formData)
+            console.log('inside the login component',formData)
+
+            dispatch(startUserLogin(formData))
+            props.history.push('/')
         }else {
             setFormErrors(errors)
         }
 
         // console.log(props)
-        // setEmail('')
-        // setRadio('')
-        // setPassword('')
-        // props.history.push('/home')
+        setEmail('')
+        setRadio('')
+        setPassword('')
     }
 
     const handleChange = (e) => {

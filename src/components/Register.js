@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 // import axios from 'axios'
 import validator from 'validator'
 import {Link} from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { startPostUsers } from '../actions/usersAction'
 
 const Register = (props) => {
     const [ name, setName ] = useState('')
@@ -11,6 +13,7 @@ const Register = (props) => {
     const [ check , setCheck ] = useState(false)
     const [ formErrors , setFormErrors ] = useState({})
     const errors = {}
+    const dispatch = useDispatch()
 
     const resetAll = () => {
         setName('')
@@ -22,6 +25,8 @@ const Register = (props) => {
     const formValidation = () => {
         if(name.trim().length === 0){
             errors.name = 'name cannot be blank'
+        }else if(name.trim().split(' ').length > 1){
+            errors.name = 'name cannot contain spaces, you  can use special character instead'
         }
 
         if(email.trim().length === 0){
@@ -36,6 +41,8 @@ const Register = (props) => {
 
         if(password.trim().length === 0){
             errors.password = 'password cannot be blank'
+        }else if(password.trim().split(' ').length > 1){
+            errors.password = 'password cannot contain spaces'
         }
     }
 
@@ -54,23 +61,14 @@ const Register = (props) => {
                 phone: mobile
             }
             console.log(formData)
+
+            dispatch(startPostUsers(formData))
+
             resetAll()
+            props.history.push('/login')
         }else{
             setFormErrors(errors)
         }
-
-
-        // axios.post('http://localhost:3088/scout/register',formData)
-        //     .then((res) => {
-        //         const result = res.data
-        //         console.log(result)
-        //     })
-        //     .catch((err) => {
-        //         console.log(err.message)
-        //     })
-
-        
-        // props.history.push('/login')
     }
 
     const handleChange = (e) => {
