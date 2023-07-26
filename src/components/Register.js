@@ -37,6 +37,8 @@ const Register = (props) => {
 
         if(mobile.trim().length === 0){
             errors.mobile = 'mobile number cannot be blank'
+        }else if(mobile.trim().length >10 || mobile.trim().length < 10){
+            errors.mobile = 'please enter a valid mobile number'
         }
 
         if(password.trim().length === 0){
