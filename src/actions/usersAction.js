@@ -1,5 +1,56 @@
 import axios from 'axios'
 
+const currentUser = (user) => {
+    return {
+        type: 'CURRENT_USER',
+        payload: user
+    }
+}
+
+export const updateDetails = (formData) => {
+    return (dispatch) => {
+        axios.put('http://localhost:3088/scout/user/update', formData, {
+            headers:{
+                'authorization': localStorage.getItem('token')
+            }
+        })
+        .then((res) => {
+            const result = res.data
+            // console.log(result)
+            dispatch(currentUser(result))
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+}
+
+
+export const getCurrentUser = () => {
+    return (dispatch) => {
+        axios.get('http://localhost:3088/scout/user/account',{
+            headers: {
+                'authorization': localStorage.getItem('token')
+            }
+        })
+        .then((res) => {            
+            const result = res.data
+            // console.log(result)
+            dispatch(currentUser(result))
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+}
+
+export const updateLoggedIn = (value) => {
+    return {
+        type: 'LOGGED_IN',
+        payload: value
+    }
+}
+
 
 export const startUserLogin = (formData) => {
     return (dispatch) => {
@@ -10,7 +61,8 @@ export const startUserLogin = (formData) => {
                     alert(result.error)
                 }else{
                     alert('logged in successfully')
-                    localStorage.setItem('token' , result.token.split(' ')[1])
+                    localStorage.setItem('token' , result.token)
+                    dispatch(updateLoggedIn(true))
                     dispatch(startGetUsers())
                 }
             })

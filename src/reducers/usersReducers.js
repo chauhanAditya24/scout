@@ -1,5 +1,6 @@
 const initialState = {
-    loggedInUser:{},
+    currentUser: {},
+    loggedIn: false,
     allUsers: []
 }
 
@@ -15,6 +16,15 @@ const usersReducer = ( state = initialState , action) => {
 
         case 'ALL_USERS': {
             return { ...state, allUsers:action.payload}
+        }
+
+        //updating the value to true when user loggin in
+        case 'LOGGED_IN': {
+            return { ...state , loggedIn: action.payload }
+        }
+
+        case 'CURRENT_USER': {
+            return {...state , currentUser: action.payload}
         }
 
         default : {

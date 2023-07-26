@@ -1,30 +1,23 @@
-import React from 'react'
-import { Link, Route } from 'react-router-dom'
-import Register from './components/Register'
-import ListingUsers from './components/ListingUsers'
-import Home from './components/Home'
-import Login from './components/Login'
-import RegisterGround from './components/RegisterGround'
-import ShowGrounds from './components/ShowGrounds'
-import SelectedGround from './components/SlectedGround'
+import React , {useEffect}from 'react'
+import NavBar from './components/NavBar'
+import { useDispatch } from 'react-redux'
+import {updateLoggedIn} from './actions/usersAction'
 
 const App = (props) => {
+  
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      dispatch(updateLoggedIn(true))
+    }
+  },[dispatch])
+  
 
   return (
     <div>
-      <span>
-        <Link to='/'> Home </Link> | 
-        <Link to='/register'> Register </Link> |
-        <Link to='/login'> Login </Link>
-        </span>
-
-      <Route path='/' component={Home} exact={true}/>
-      <Route path='/register' component={Register} exact={true}/>
-      <Route path='/login' component={Login} exact={true}/>
-      <Route path='/players' component={ListingUsers} exact={true}/>
-      <Route path='/grounds/register' component={RegisterGround} exact={true}/>
-      <Route path='/grounds/all' component={ShowGrounds} exact={true}/>
-      <Route path='/grounds/selectedGround' component={SelectedGround} exact={true}/>
+      <h1> the scout project</h1>
+      <NavBar/>
     </div>
   )
 

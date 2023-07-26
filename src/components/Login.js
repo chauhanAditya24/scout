@@ -44,6 +44,7 @@ const Login = (props) => {
             console.log('inside the login component',formData)
 
             dispatch(startUserLogin(formData))
+            
             props.history.push('/')
         }else {
             setFormErrors(errors)
