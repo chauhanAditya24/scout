@@ -1,5 +1,6 @@
 const initialState = {
     groundsList: [],
+    groundsListCondition: [],
     selectedGround: {}
 }
 
@@ -11,6 +12,10 @@ const groundsReducer = ( state = initialState , action) => {
 
         case 'SELECTED_GROUND': {
             return { ...state , selectedGround: action.payload}
+        }
+
+        case 'SET_SPECIFIC_GROUND': {
+            return { ...state , groundsListCondition: action.payload}
         }
 
         default: {

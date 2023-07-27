@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import EditDetails from './EditDetails'
+import { useDispatch } from 'react-redux'
+import { startGetGrounds } from '../actions/groundsAction'
 
 const UsersDashboard = (props) => {
 
-    // <EditDetails/> className='navbar navbar-expand-lg navbar-light bg-light'
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(startGetGrounds())
+    }, [dispatch])
 
     return (
         <div>

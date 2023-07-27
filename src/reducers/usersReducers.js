@@ -1,7 +1,8 @@
 const initialState = {
     currentUser: {},
     loggedIn: false,
-    allUsers: []
+    allUsers: [],
+    usersListCondition: []
 }
 
 const usersReducer = ( state = initialState , action) => {
@@ -26,6 +27,11 @@ const usersReducer = ( state = initialState , action) => {
         case 'CURRENT_USER': {
             return {...state , currentUser: action.payload}
         }
+
+        case 'SET_SPECIFIC_USER': {
+            return { ...state , usersListCondition: action.payload}
+        }
+
 
         default : {
             return {...state}

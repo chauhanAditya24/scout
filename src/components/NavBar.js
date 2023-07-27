@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux'
 import Logout from './Logout'
 import Account from './Account'
 import EditAccount from './EditAccount'
+import ListPlayers from './ListPlayers'
+import ListGround from './ListGround'
 
 const NavBar = (props) => {
     const loggedIn = useSelector((state) => {
@@ -47,6 +49,8 @@ const NavBar = (props) => {
             <Route path='/logout' component={Logout} exact={true}/>
             <Route path='/account' component={Account} exact={true}/>
             <Route path='/edit' component={EditAccount} exact={true}/>
+            <Route path='/list/players' component={ListPlayers} exact={true}/>
+            <Route path='/list/specific/grounds' component={ListGround} exact={true}/>
         </div>
     )
 }

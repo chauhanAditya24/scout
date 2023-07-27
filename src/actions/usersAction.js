@@ -1,6 +1,30 @@
 import axios from 'axios'
 
-const currentUser = (user) => {
+export const setSpecificUser = (data) => {
+    return {
+        type: 'SET_SPECIFIC_USER',
+        payload: data
+    }
+}
+
+export const startGetSpecificUsers = (obj) => {
+    return (dispatch) => {
+        axios.post('http://localhost:3088/scout/users/specific', obj , {
+            headers: {
+                'authorization': localStorage.getItem('token')
+            }
+        })
+        .then((res) => {
+            console.log(res.data)
+            dispatch(setSpecificUser(res.data))
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+}
+
+export const currentUser = (user) => {
     return {
         type: 'CURRENT_USER',
         payload: user
