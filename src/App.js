@@ -2,6 +2,8 @@ import React , {useEffect}from 'react'
 import NavBar from './components/NavBar'
 import { useDispatch } from 'react-redux'
 import {updateLoggedIn} from './actions/usersAction'
+import { getCities} from './actions/citiesAction'
+import { startGetSports } from './actions/sportsAction'
 
 const App = (props) => {
   
@@ -11,6 +13,10 @@ const App = (props) => {
     if(localStorage.getItem('token')){
       dispatch(updateLoggedIn(true))
     }
+
+    dispatch(getCities())
+    dispatch(startGetSports())
+
   },[dispatch])
   
 

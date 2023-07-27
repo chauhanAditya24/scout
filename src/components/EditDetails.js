@@ -3,11 +3,14 @@ import { useSelector } from "react-redux"
 
 const EditDetails = (props) => {
 
-    const users = useSelector( (state) => {
-        return state.users.allUsers
+    const { users, grounds} = useSelector( (state) => {
+        return {
+            users : state.users.allUsers,
+            grounds: state.grounds.groundsList
+        }
     })
 
-    console.log(users)
+    console.log('ground list', grounds)
 
     return (
         <div>
