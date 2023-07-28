@@ -1,5 +1,28 @@
 import axios from 'axios'
 
+export const addPlayer = (data) => {
+    return {
+        type: 'ADD_PLAYER',
+        payload: data
+    }
+}
+
+export const startGetSelectedPlayer = (id) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:3088/scout/player/${id}`,{
+            headers:{
+                'authorization': localStorage.getItem('token')
+            }
+        })
+        .then((res) => {
+            dispatch(addPlayer(res.data))
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+}
+
 export const setSpecificUser = (data) => {
     return {
         type: 'SET_SPECIFIC_USER',

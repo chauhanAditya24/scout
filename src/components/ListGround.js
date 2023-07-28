@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { startGetSpecificGrounds } from '../actions/groundsAction'
+import { startGetSpecificGrounds , addSelectedGround} from '../actions/groundsAction'
+import {Link} from 'react-router-dom'
 
 const ListGround = (props) => {
     
@@ -25,6 +26,13 @@ const ListGround = (props) => {
 
     console.log(' inside the grounds specific component ,' ,city,sport,grounds)
 
+    const handleClick = (id) => {
+        const result = grounds.filter((ground) => {
+            return ground._id === id
+        })
+        dispatch(addSelectedGround(result[0]))
+    }
+
     return(
         <div>
             <h1>Grounds near your city : </h1>
@@ -34,7 +42,9 @@ const ListGround = (props) => {
                         {
                             grounds.map((ground) => {
                                 return (
-                                    <li key={ground._id}> {ground.name} </li>
+                                    <li key={ground._id}> {ground.name} <Link to='/ground/details' onClick={() => {
+                                        handleClick(ground._id)
+                                    }}><button> show detials</button></Link> </li>
                                 )
                             })
                         }
