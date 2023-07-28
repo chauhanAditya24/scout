@@ -1,5 +1,12 @@
 import axios from 'axios'
 
+export const addSelectedGround = (obj) => {
+    return {
+        type:'ADD_DETAILS',
+        payload: obj
+    }
+}
+
 export const selectedGround = (ground) => {
     // console.log('inside the groundAction', ground)
     return {

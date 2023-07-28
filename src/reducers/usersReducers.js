@@ -2,7 +2,8 @@ const initialState = {
     currentUser: {},
     loggedIn: false,
     allUsers: [],
-    usersListCondition: []
+    usersListCondition: [],
+    selectedPlayer: {}
 }
 
 const usersReducer = ( state = initialState , action) => {
@@ -10,7 +11,7 @@ const usersReducer = ( state = initialState , action) => {
         case 'LOGGED_IN_USER': {
             return {...state}
         }
-
+        
         case 'ADD_USER': {
             return {...state,allUsers:[...state.data,action.payload]}
         }
@@ -32,9 +33,12 @@ const usersReducer = ( state = initialState , action) => {
             return { ...state , usersListCondition: action.payload}
         }
 
-
+        case 'ADD_PLAYER': {
+            return { ...state , selectedPlayer: action.payload }
+        }
+    
         default : {
-            return {...state}
+            return {...state }
         } 
     }
 }

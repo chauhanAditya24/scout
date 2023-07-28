@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { startGetSpecificUsers } from '../actions/usersAction'
+import { startGetSpecificUsers , startGetSelectedPlayer } from '../actions/usersAction'
+import { Link } from 'react-router-dom'
 
 const ListPlayers = (props) => {
     const dispatch = useDispatch()
@@ -24,6 +25,11 @@ const ListPlayers = (props) => {
     
     console.log(' inside the grounds specific component ,' ,city,sport,users)
 
+
+    const handleClick = (id) => {
+        dispatch(startGetSelectedPlayer(id))
+    }
+
     return (
         <div>
             <h1> listing player : </h1>
@@ -33,7 +39,9 @@ const ListPlayers = (props) => {
                         {
                             users.map((user) => {
                                 return (
-                                    <li key={user._id}> {user.username} </li>
+                                    <li key={user._id}> {user.username} <Link to='/list/selected/player' onClick={() => {
+                                        handleClick(user._id)
+                                    }}><button>view detials</button></Link> </li>
                                 )
                             })
                         }

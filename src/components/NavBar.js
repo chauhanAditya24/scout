@@ -13,6 +13,8 @@ import Account from './Account'
 import EditAccount from './EditAccount'
 import ListPlayers from './ListPlayers'
 import ListGround from './ListGround'
+import ListSelectedUser from './ListSelectedUser'
+import ListSelectedGround from './ListSelectedGround'
 
 const NavBar = (props) => {
     const loggedIn = useSelector((state) => {
@@ -51,6 +53,8 @@ const NavBar = (props) => {
             <Route path='/edit' component={EditAccount} exact={true}/>
             <Route path='/list/players' component={ListPlayers} exact={true}/>
             <Route path='/list/specific/grounds' component={ListGround} exact={true}/>
+            <Route path='/list/selected/player' component={ListSelectedUser} exact={true}/>
+            <Route path='/ground/details' component={ListSelectedGround} exact={true}/>
         </div>
     )
 }
