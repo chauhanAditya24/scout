@@ -1,8 +1,15 @@
 import React from 'react'
 import {useState} from 'react'
-import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 const RegisterGround = (props) => {
+
+    const role = useSelector((state) => {
+        return state.users.currentUser.role
+    })
+
+    console.log('role of user: ' , role)
+
     const [ name, setName ] = useState('')
     const [ location , setLocation ] = useState('')
     const [ city, setCity ] = useState('')

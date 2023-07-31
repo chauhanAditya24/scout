@@ -36,7 +36,36 @@ const ListGround = (props) => {
     return(
         <div className='container'>
             <h1>Grounds near your city : </h1>
-            {
+
+            { grounds && (
+                    grounds.map((ground) => {
+                        return (
+                            <div key={ground._id} className='card' style={{width: '18rem'}}>
+                                <div className='card-body'>
+                                    <h5 className='card-title'> {ground.name} </h5>
+                                    <p className='card-text'> Location : {ground.location} <br/>
+                                        Sport: {ground.sport} <br/>
+                                        Timings: {ground.timings}
+                                    </p>
+                                    <Link to='/ground/details' onClick={() => {
+                                        handleClick(ground._id)
+                                    }}><button className='btn btn-info'> show detials</button></Link>
+                                </div>
+                            </div>
+                        )
+                    })
+            )}
+            
+            <button className='btn btn-primary' onClick={() => {
+                props.history.push('/')
+            }}> back </button>
+        </div>
+    )
+}
+
+
+/*
+{
                 grounds && (
                     <ul>
                         {
@@ -51,11 +80,13 @@ const ListGround = (props) => {
                     </ul>
                 )
             }
-            <button className='btn btn-primary' onClick={() => {
-                props.history.push('/')
-            }}> back </button>
-        </div>
-    )
-}
+*/
+
+
+
+
+
+
+
 
 export default ListGround

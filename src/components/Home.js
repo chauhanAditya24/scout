@@ -4,18 +4,20 @@ import UsersDashboard from './UsersDashboard'
 import { useSelector , useDispatch } from 'react-redux'
 import { selectedCity }from '../actions/citiesAction'
 import { selectedSport } from '../actions/sportsAction'
+import TestComponent from './TestComponent'
 
 const Home = () => {
     const dispatch = useDispatch()
 
-    const { cities , city, sports , sport} = useSelector((state) => {
+    const { cities , city, sports , sport, role } = useSelector((state) => {
         const cities =  state.cities.cities
         const city = state.cities.city
         const obj = {
             cities,
             city,
             sports: state.sports.sports,
-            sport : state.sports.sport
+            sport : state.sports.sport,
+            role : state.users.role
         } 
         return obj
     })
@@ -34,8 +36,11 @@ const Home = () => {
     return (
         <div>
             <h1>Home component </h1>
-            <span><Link to='/players'> Players </Link> | <Link to='/grounds/all'> Grounds </Link></span>
+            { role &&  <Link to='/grounds/register'> register your ground</Link>}
+            <span> | <Link to='/players'> Players </Link> | <Link to='/grounds/all'> Grounds </Link></span>
             <UsersDashboard/>
+            <TestComponent/>
+
 
             <select value={city} onChange={handleChangeCity}>
                 <option>select the city</option>

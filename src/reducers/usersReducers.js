@@ -3,7 +3,8 @@ const initialState = {
     loggedIn: false,
     allUsers: [],
     usersListCondition: [],
-    selectedPlayer: {}
+    selectedPlayer: {},
+    role: 'manager'
 }
 
 const usersReducer = ( state = initialState , action) => {
