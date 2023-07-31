@@ -34,7 +34,7 @@ const ListGround = (props) => {
     }
 
     return(
-        <div>
+        <div className='container'>
             <h1>Grounds near your city : </h1>
             {
                 grounds && (
@@ -44,13 +44,16 @@ const ListGround = (props) => {
                                 return (
                                     <li key={ground._id}> {ground.name} <Link to='/ground/details' onClick={() => {
                                         handleClick(ground._id)
-                                    }}><button> show detials</button></Link> </li>
+                                    }}><button className='btn btn-info'> show detials</button></Link> </li>
                                 )
                             })
                         }
                     </ul>
                 )
             }
+            <button className='btn btn-primary' onClick={() => {
+                props.history.push('/')
+            }}> back </button>
         </div>
     )
 }

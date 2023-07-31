@@ -48,6 +48,9 @@ const ListPlayers = (props) => {
                     </ul>
                 )
             }
+            <button onClick={() => {
+                props.history.push('/')
+            }}> back </button>
         </div>
     )
 }

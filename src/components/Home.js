@@ -61,6 +61,7 @@ const Home = () => {
             {
                 (city && sport) && (
                     <>
+                    <br/>
                     <Link to='/list/players'><button>players</button></Link>
                     <Link to='/list/specific/grounds'><button> grounds</button></Link>
                     </>
