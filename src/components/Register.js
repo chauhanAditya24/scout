@@ -91,7 +91,7 @@ const Register = (props) => {
     return (
         <div>
             <h3> Register on scout</h3>
-            <form onSubmit={handleFormSubmit}>
+            <form onSubmit={handleFormSubmit} >
                 <label>Name : </label>
                 <input type='text'
                     name='name'

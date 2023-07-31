@@ -16,6 +16,9 @@ const ListSelectedUser = (props) => {
                 player && (
                     <>
                         <h3>{player.username}</h3>
+                        <button onClick={() => {
+                            props.history.push('/list/players')
+                        }}>back</button>
                     </>
                 )
             }
