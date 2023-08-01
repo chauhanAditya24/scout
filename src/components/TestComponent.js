@@ -5,15 +5,17 @@ const TestComponent = (props) => {
     const [ image , setImage] = useState('') 
 
     useEffect(() => {
-        axios.get(`http://localhost:3088/image/get/64c77770911a85481d832a61`)
+        axios.get('http://localhost:3088/scout/image/64c7e757ac39be94259f562d')
             .then((res) => {
-                const blob = new Blob([res.data.profilePicture],{type: 'image/jpeg'})
-                setImage(URL.createObjectURL(blob))
+                console.log(res.data)
+                setImage(res.data.profilePicture)
             })
             .catch((err) => {
                 console.log(err)
             })
     },[])
+
+    console.log('iamge path ', image)
 
     return(
         <div>

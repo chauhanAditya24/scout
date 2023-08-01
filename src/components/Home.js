@@ -4,7 +4,7 @@ import UsersDashboard from './UsersDashboard'
 import { useSelector , useDispatch } from 'react-redux'
 import { selectedCity }from '../actions/citiesAction'
 import { selectedSport } from '../actions/sportsAction'
-import TestComponent from './TestComponent'
+// import TestComponent from './TestComponent'
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -39,7 +39,7 @@ const Home = () => {
             { role &&  <Link to='/grounds/register'> register your ground</Link>}
             <span> | <Link to='/players'> Players </Link> | <Link to='/grounds/all'> Grounds </Link></span>
             <UsersDashboard/>
-            <TestComponent/>
+            {/* <TestComponent/> */}
 
 
             <select value={city} onChange={handleChangeCity}>

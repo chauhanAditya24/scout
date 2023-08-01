@@ -1,25 +1,46 @@
-import React, { useState } from 'react'
-// import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import validator from 'validator'
-import {Link} from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+// import {Link} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { startPostUsers } from '../actions/usersAction'
+import { getCities } from '../actions/citiesAction'
+import { startGetSports } from '../actions/sportsAction'
 
 const Register = (props) => {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getCities())
+        dispatch(startGetSports())
+    },[dispatch])
+
+    const { cities , sports } = useSelector((state) => {
+        return {
+            cities: state.cities.cities,
+            sports: state.sports.sports
+        }
+    })
+
     const [ name, setName ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ mobile, setMobile ] = useState('')
     const [ check , setCheck ] = useState(false)
+    const [ role , setRole ] = useState('')
+    const [ city , setCity] = useState('')
+    const [ sport, setSport ] = useState('')
     const [ formErrors , setFormErrors ] = useState({})
     const errors = {}
-    const dispatch = useDispatch()
 
     const resetAll = () => {
         setName('')
         setPassword('')
         setMobile('')
         setEmail('')
+        setRole('')
+        setCity('')
+        setSport('')
     }
 
     const formValidation = () => {
@@ -46,6 +67,18 @@ const Register = (props) => {
         }else if(password.trim().split(' ').length > 1){
             errors.password = 'password cannot contain spaces'
         }
+
+        if(role === ''){
+            errors.role = 'must select one role'
+        }
+
+        if(city === ''){
+            errors.city = 'city must be provided so that you can see the nearest players'
+        }
+
+        if(sport === ''){
+            errors.sport = 'sport must be slected'
+        }
     }
 
     const handleFormSubmit = (e) => {
@@ -60,7 +93,10 @@ const Register = (props) => {
                 username: name,
                 email: email,
                 password: password,
-                phone: mobile
+                phone: mobile,
+                role:role,
+                city:city,
+                sport:sport
             }
             console.log(formData)
 
@@ -85,6 +121,12 @@ const Register = (props) => {
         }else if(e.target.name === 'checkbox'){
             const ans = !check
             setCheck(ans)
+        }else if(e.target.name === 'userType'){
+            setRole(e.target.value)
+        }else if(e.target.name === 'city'){
+            setCity(e.target.value)
+        }else if(e.target.name === 'sports'){
+            setSport(e.target.value)
         }
     }
 
@@ -124,6 +166,41 @@ const Register = (props) => {
                     placeholder='enter mobile number'/>
                     { formErrors.mobile && <span style={{color: 'red'}}> {formErrors.mobile} </span>}    
                 <br/>
+                <input type='radio'
+                    name='userType'
+                    value='player'
+                    checked={role === 'player'}
+                    onChange={handleChange}
+                />player
+                <input type='radio'
+                    name='userType'
+                    value='manager'
+                    checked={role === 'manager'}
+                    onChange={handleChange}
+                />manager {formErrors.role && <span style={{color: 'red'}}><br/> {formErrors.role} </span>}<br/>
+                
+                <select value={city} name='city' onChange={handleChange}>
+                    <option> select your city</option>
+                    {
+                        cities.map((city) => {
+                            return (
+                                <option key={city._id}> {city.city} </option>
+                            )
+                        })
+                    }
+                </select>{formErrors.city && <span style={{color: 'red'}}> <br/>{formErrors.city} </span>}
+                <br/>
+                <select value={sport} name='sports' onChange={handleChange}>
+                    <option>select your sport</option>
+                    {
+                        sports.map((sport) => {
+                            return (
+                                <option key={sport._id}> { sport.name}</option>
+                            )
+                        })
+                    }
+                </select>{formErrors.sport && <span style={{color:'red'}}><br/>{formErrors.sport}</span>}
+                <br/>
                 <input type='checkbox'
                     name='checkbox'
                     checked={check}
@@ -132,7 +209,7 @@ const Register = (props) => {
                 <input className='btn btn-primary' type='submit' disabled={!check} value='game on!!'/>
             </form>
 
-            <span><Link to='/grounds/register'> register ground </Link></span>
+            {/* <span><Link to='/grounds/register'> register ground </Link></span> */}
 
         </div>
     )
