@@ -11,6 +11,11 @@ const ListSelectedGround = (props) => {
     return (
         <div>
             <h1>{ground.name}</h1>
+
+            <div className='d grid gap-2 col-6 mx-auto'>
+                <button className='btn btn-success'> book now</button>
+            </div>
+
             <button onClick={() => {
                 props.history.push('/list/specific/grounds')
             }}> back </button>

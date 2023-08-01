@@ -1,13 +1,15 @@
 import React from 'react'
 import {useState} from 'react'
 import validator from 'validator'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {startUserLogin} from '../actions/usersAction'
 
 const Login = (props) => {
+    // const loggedIn = useSelector((state) => {
+    //     return state.users.loggedIn
+    // })
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
-    const [ radio , setRadio ] = useState('')
 
     const [ formErrors , setFormErrors] = useState({})
     const errors = {}
@@ -23,10 +25,6 @@ const Login = (props) => {
 
         if(password.trim().length === 0){
             errors.password = 'password cannot be blank'
-        }
-
-        if(radio === ''){
-            errors.radio = 'must select one role'
         }
     }
 
@@ -44,7 +42,7 @@ const Login = (props) => {
             console.log('inside the login component',formData)
 
             dispatch(startUserLogin(formData))
-            
+            // console.log(' result of dispatch ',res)
             props.history.push('/')
         }else {
             setFormErrors(errors)
@@ -52,7 +50,6 @@ const Login = (props) => {
 
         // console.log(props)
         setEmail('')
-        setRadio('')
         setPassword('')
     }
 
@@ -61,8 +58,6 @@ const Login = (props) => {
             setEmail(e.target.value)
         }else if(e.target.name === 'password'){
             setPassword(e.target.value)
-        }else if(e.target.name === 'userType'){
-            setRadio(e.target.value)
         }
     }
 
@@ -88,19 +83,6 @@ const Login = (props) => {
                 />
                 {formErrors.password && <span style={{color: 'red'}}> {formErrors.password} </span> }
                 <br/>
-                <input type='radio' 
-                    name='userType' 
-                    value='player' 
-                    checked={radio === 'player'} 
-                    onChange={handleChange}
-                /> player  
-                <input type='radio'
-                    name='userType'
-                    value='manager'
-                    checked={radio === 'manager'}
-                    onChange={handleChange}    
-                /> manager<br/>
-                {formErrors.radio && <span style={{color: 'red'}}> {formErrors.radio} <br/></span> }
                 <input type='submit' value=' Login in'/>
             </form>
 
