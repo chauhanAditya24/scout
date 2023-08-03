@@ -98,6 +98,38 @@ export const updateLoggedIn = (value) => {
     }
 }
 
+export const setRole = (data) => {
+    return {
+        type: 'SET_ROLE',
+        payload: data
+    }
+
+}
+
+export const setUserId = (id) => {
+    return {
+        type: 'SET_ID',
+        payload: id
+    }
+}
+
+export const startGetRole = () => {
+    return (dispatch) => {
+        axios.get('http://localhost:3088/scout/user/login',{
+            headers:{
+                'authorization':localStorage.getItem('token')
+            }
+        })
+        .then((res) => {
+            // console.log('current user',res.data)
+            dispatch(setRole(res.data.role))
+            dispatch(setUserId(res.data._id))
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
+}
 
 export const startUserLogin = (formData) => {
     return (dispatch) => {
@@ -111,6 +143,7 @@ export const startUserLogin = (formData) => {
                     localStorage.setItem('token' , result.token)
                     dispatch(updateLoggedIn(true))
                     dispatch(startGetUsers())
+                    dispatch(startGetRole())
                 }
             })
             .catch((err) => {

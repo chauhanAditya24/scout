@@ -1,5 +1,52 @@
 import axios from 'axios'
 
+export const addEditGround = (data) => {
+    return {
+        type: 'EDIT_GROUND',
+        payload: data
+    }
+}
+
+export const startGetEditGroundDetials = (id) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:3088/scout/grounds/${id}`,{
+            headers:{
+                'authorization': localStorage.getItem('token')
+            }
+        })
+            .then((res) => {
+                dispatch(addEditGround(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+}
+
+export const addUsersGround = (data) => {
+    return {
+        type: 'ADD_USERS_GROUND',
+        payload: data
+    }
+}
+
+export const startGetUsersGround = () => {
+    return (dispatch) => {
+        axios.get('http://localhost:3088/scout/ground/user',{
+            headers:{
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+        .then((res) => {
+            console.log(' inside startgetusersground',res.data)
+            dispatch(addUsersGround(res.data))
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+}
+
 export const addSelectedGround = (obj) => {
     return {
         type:'ADD_DETAILS',

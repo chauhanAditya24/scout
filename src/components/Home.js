@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import UsersDashboard from './UsersDashboard'
 import { useSelector , useDispatch } from 'react-redux'
 import { selectedCity }from '../actions/citiesAction'
 import { selectedSport } from '../actions/sportsAction'
+import {startGetRole} from '../actions/usersAction'
+import { startGetUsersGround } from '../actions/groundsAction'
 // import TestComponent from './TestComponent'
 
 const Home = () => {
     const dispatch = useDispatch()
 
-    const { cities , city, sports , sport, role } = useSelector((state) => {
+    useEffect(() => {
+        dispatch(startGetRole())
+        dispatch(startGetUsersGround())
+    }, [dispatch])
+
+    const { cities , city, sports , sport, role ,grounds} = useSelector((state) => {
         const cities =  state.cities.cities
         const city = state.cities.city
         const obj = {
@@ -17,13 +24,13 @@ const Home = () => {
             city,
             sports: state.sports.sports,
             sport : state.sports.sport,
-            role : state.users.role
+            role : state.users.role,
+            grounds: state.grounds.ownersGround
         } 
         return obj
     })
 
-    console.log('city in home component', city)
-    console.log('sports',sports)
+    console.log('role home component', role)
     
     const handleChangeCity = (e) => {
         dispatch(selectedCity(e.target.value))
@@ -36,8 +43,10 @@ const Home = () => {
     return (
         <div>
             <h1>Home component </h1>
-            { role &&  <Link to='/grounds/register'> register your ground</Link>}
-            <span> | <Link to='/players'> Players </Link> | <Link to='/grounds/all'> Grounds </Link></span>
+            { role==='manager' &&  <Link to='/grounds/register'> register your ground <span>|</span></Link>}
+            { grounds.length > 0  && <Link to='/grounds/user/edit'> edit your ground <span>|</span></Link>}
+
+            <span><Link to='/players'> Players </Link> | <Link to='/grounds/all'> Grounds </Link></span>
             <UsersDashboard/>
             {/* <TestComponent/> */}
 

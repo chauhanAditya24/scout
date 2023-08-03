@@ -4,7 +4,8 @@ const initialState = {
     allUsers: [],
     usersListCondition: [],
     selectedPlayer: {},
-    role: 'manager'
+    role: '',
+    userid:''
 }
 
 const usersReducer = ( state = initialState , action) => {
@@ -13,6 +14,14 @@ const usersReducer = ( state = initialState , action) => {
             return {...state}
         }
         
+        case 'SET_ID': {
+            return { ...state , userid:action.payload}
+        }
+
+        case 'SET_ROLE': {
+            return { ...state , role: action.payload}
+        }
+
         case 'ADD_USER': {
             return {...state,allUsers:[...state.data,action.payload]}
         }

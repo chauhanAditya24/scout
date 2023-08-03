@@ -1,41 +1,28 @@
-import React,{useEffect} from 'react'
-import {useState} from 'react'
-import axios from 'axios'
-import { useSelector, useDispatch } from 'react-redux'
-import { startGetSports } from '../actions/sportsAction'
-import { getCities } from '../actions/citiesAction'
+import axios from "axios"
+import React from "react"
+import { useState } from "react"
+import { useSelector } from "react-redux"
 
-const RegisterGround = (props) => {
-
-    const { role, id , cities,sports} = useSelector((state) => {
+const GroundEdit = (props) => {
+    const {ground,id} = useSelector((state) => {
         return {
-            role: state.users.currentUser.role,
-            id: state.users.userid,
-            cities: state.cities.cities,
-            sports: state.sports.sports
-        }
+            ground: state.grounds.groundToEdit,
+            id: state.users.userid
+        } 
     })
 
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getCities())
-        dispatch(startGetSports())
-    },[dispatch])
-
-    const [ name, setName ] = useState('')
-    const [ location , setLocation ] = useState('')
-    const [ city, setCity ] = useState('')
-    const [ price, setPrice ] = useState('')
-    const [ timings, setTimings ] = useState('')
-    const [ slot , setSlot] = useState('')
-    const [ sport , setSport ] = useState('')
-    const [capacity, setCapacity] = useState('')
+    const [ name, setName ] = useState(ground.name)
+    const [ location , setLocation ] = useState(ground.location)
+    const [ city, setCity ] = useState(ground.city)
+    const [ price, setPrice ] = useState(ground.price)
+    const [ timings, setTimings ] = useState(ground.timings)
+    const [ slot , setSlot] = useState(ground.slotType)
+    const [ sport , setSport ] = useState(ground.sport)
+    const [capacity, setCapacity] = useState(ground.capacity)
     const uid = id
-    // client side validations
     const [ formErrors, setFormErrors] = useState({})
     const errors = {}
-
+    
     const validation = () => {
         if(name.trim().length === 0){
             errors.name = 'name cannot be blank'
@@ -43,10 +30,6 @@ const RegisterGround = (props) => {
         
         if(location.trim().length === 0){
             errors.location = 'loaction cannot be blank'
-        }
-        
-        if(city.trim().length === 0){
-            errors.city = 'city cannot be blank'
         }
         
         if(price.trim().length === 0){
@@ -59,10 +42,6 @@ const RegisterGround = (props) => {
 
         if(slot === ''){
             errors.slot = 'slot must be provided so that you can see the nearest players'
-        }
-
-        if(sport === ''){
-            errors.sport = 'sport must be slected'
         }
 
         if(capacity === '' ){
@@ -95,17 +74,19 @@ const RegisterGround = (props) => {
             }
             console.log(formData)
 
-            axios.post('http://localhost:3088/scout/grounds/register',formData)
-            .then((res) => {
-                console.log('registering the ground',res.data)
-                const result = res.data
-                if(result){
-                    props.history.push('/')
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+            axios.put(`http://localhost:3088/scout/grounds/update/${ground._id}`,formData)
+                .then((result) => {
+                    if(result.data){
+                        alert('data changed successfully')
+                        props.history.push('/')
+                    }else{
+                        alert('some internal error please try again later')
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+                
 
         }else{
             setFormErrors(errors)
@@ -117,14 +98,10 @@ const RegisterGround = (props) => {
             setName(e.target.value)
         }else if(e.target.name === 'location'){
             setLocation(e.target.value)
-        }else if(e.target.name === 'city'){
-            setCity(e.target.value)
         }else if(e.target.name === 'price'){
             setPrice(e.target.value)
         }else if(e.target.name === 'time'){
             setTimings(e.target.value)
-        }else if(e.target.name === 'sports'){
-            setSport(e.target.value)
         }else if(e.target.name === 'slot'){
             setSlot(e.target.value)
         }else if(e.target.name === 'capacity'){
@@ -134,7 +111,8 @@ const RegisterGround = (props) => {
 
     return (
         <div>
-            <h1>register ground</h1>
+            <h2>edit ground details</h2>
+            
             <form onSubmit={handleSubmit}>
                 <label>Ground name : </label>
                 <input type='text' 
@@ -163,30 +141,7 @@ const RegisterGround = (props) => {
                 />
                 {formErrors.price && <span style={{color: 'red'}}> {formErrors.price}</span>}
                 <br/>
-                <label> select your city </label>
-                <select value={city} name='city' onChange={handleChange}>
-                    <option> select your city</option>
-                    {
-                        cities.map((city) => {
-                            return (
-                                <option key={city._id}> {city.city} </option>
-                            )
-                        })
-                    }
-                </select>{formErrors.city && <span style={{color: 'red'}}>{formErrors.city}</span>}<br/>
-                <label> enter the sport</label>
-                <select value={sport} name='sports' onChange={handleChange}>
-                    <option>select your sport</option>
-                    {
-                        sports.map((sport) => {
-                            return (
-                                <option key={sport._id}> { sport.name}</option>
-                            )
-                        })
-                    }
-                </select>{formErrors.sport && <span style={{color: 'red'}}> {formErrors.sport}</span>}<br/>
-
-
+                
                 <label>timings</label>
                 <input type='text'
                     name='time'
@@ -213,12 +168,11 @@ const RegisterGround = (props) => {
                 />{formErrors.capacity && <span style={{color: 'red'}}>  {formErrors.capacity}</span>}<br/>
 
 
-                <input type='submit' value='register ground'/>
+                <input type='submit' value='edit details'/>
             </form>
-        </div>
 
+        </div>
     )
 }
 
-
-export default RegisterGround
+export default GroundEdit

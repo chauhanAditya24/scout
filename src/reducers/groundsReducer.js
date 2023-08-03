@@ -2,13 +2,24 @@ const initialState = {
     groundsList: [],
     groundsListCondition: [],
     selectedGround: {},
-    specificGround: {}
+    specificGround: {},
+    ownersGround:[],
+    groundToEdit: {},
+    groundToEditId:''
 }
 
 const groundsReducer = ( state = initialState , action) => {
     switch( action.type ) {
         case 'SET_GROUNDS': {
             return { ...state , groundsList: [...action.payload] }
+        }
+
+        case 'EDIT_GROUND': {
+            return { ...state,groundToEdit: action.payload}
+        }
+
+        case 'ADD_USERS_GROUND': {
+            return { ...state , ownersGround:action.payload}
         }
 
         case 'SELECTED_GROUND': {

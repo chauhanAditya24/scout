@@ -1,8 +1,9 @@
 import React from 'react'
 import {useState} from 'react'
 import validator from 'validator'
-import {useDispatch, useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {startUserLogin} from '../actions/usersAction'
+import '../css/loginPage.css'
 
 const Login = (props) => {
     // const loggedIn = useSelector((state) => {
@@ -42,6 +43,7 @@ const Login = (props) => {
             console.log('inside the login component',formData)
 
             dispatch(startUserLogin(formData))
+
             // console.log(' result of dispatch ',res)
             props.history.push('/')
         }else {
@@ -62,8 +64,38 @@ const Login = (props) => {
     }
 
     return (
-        <div>
-            <h1> Login </h1>
+        <div className='wrapper component'>
+            <div className='card-switch'>
+                <div className='title'> Log in</div>
+                    <form className='flip-card__form' onSubmit={handleSubmit}>
+                        <input className='flip-card__input' type="text" 
+                            value={email} 
+                            placeholder='enter your email' 
+                            onChange={handleChange}
+                            name='email'
+                        />
+                {formErrors.email && <span style={{color: 'red'}}> {formErrors.email} </span> }
+                {/* <br/> */}
+                <input className='flip-card__input' type='password' 
+                    value={password} 
+                    placeholder='enter password' 
+                    onChange={handleChange}
+                    name='password'
+                />
+                {formErrors.password && <span style={{color: 'red'}}> {formErrors.password} </span> }
+                {/* <br/> */}
+                <input className='flip-card__btn' type='submit' value=' Login in'/>
+            </form>
+            </div>
+        </div>
+    )
+}
+
+export default Login
+
+
+/*
+<h1> Login </h1>
             <form onSubmit={handleSubmit}>
                 <label> Email : </label>
                 <input type="text" 
@@ -86,8 +118,4 @@ const Login = (props) => {
                 <input type='submit' value=' Login in'/>
             </form>
 
-        </div>
-    )
-}
-
-export default Login
+*/
