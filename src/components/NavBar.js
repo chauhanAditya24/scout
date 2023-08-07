@@ -17,6 +17,7 @@ import ListSelectedUser from './ListSelectedUser'
 import ListSelectedGround from './ListSelectedGround'
 import EditUsersGroundDetails from '../components/EditUsersGroundDetails'
 import GroundEdit from './GroundEdit'
+import BookingPage from './BookingPage'
 
 const NavBar = (props) => {
     const loggedIn = useSelector((state) => {
@@ -56,7 +57,7 @@ const NavBar = (props) => {
             <Route path='/list/players' component={ListPlayers} exact={true}/>
             <Route path='/list/specific/grounds' component={ListGround} exact={true}/>
             <Route path='/list/selected/player' component={ListSelectedUser} exact={true}/>
-            <Route path='/ground/details' component={ListSelectedGround} exact={true}/>
+            <Route path='/ground/details' component={BookingPage} exact={true}/>
             <Route path='/grounds/user/edit' component={EditUsersGroundDetails} exact={true}/>
             <Route path='/edit/ground/details' component={GroundEdit} exact={true}/>
         </div>
