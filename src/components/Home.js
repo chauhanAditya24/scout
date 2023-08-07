@@ -6,6 +6,7 @@ import { selectedCity }from '../actions/citiesAction'
 import { selectedSport } from '../actions/sportsAction'
 import {startGetRole} from '../actions/usersAction'
 import { startGetUsersGround } from '../actions/groundsAction'
+import WhatsappLink from './WhatsappLink'
 // import TestComponent from './TestComponent'
 
 const Home = () => {
@@ -50,6 +51,8 @@ const Home = () => {
             <UsersDashboard/>
             {/* <TestComponent/> */}
 
+
+            <WhatsappLink/>
 
             <select value={city} onChange={handleChangeCity}>
                 <option>select the city</option>
