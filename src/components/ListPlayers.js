@@ -30,9 +30,22 @@ const ListPlayers = (props) => {
         dispatch(startGetSelectedPlayer(id))
     }
 
+    let ans 
+    if(users.length > 0){
+        users.forEach((ele) => {
+            if(ele._id === '64d37f0856414cc8e4453c6a'){
+                ans = '1691582216979-testlogo.png'
+                console.log('path to profile',ans)
+            }
+        })
+    }
+
     return (
         <div className='container'>
             <h1> Players in your city: </h1>
+
+            {users && ( <img src={`http://localhost:3088/images/${ans}`} alt='....'/>)}
+
             <div className='row'>
                 {
                     users && (

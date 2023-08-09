@@ -31,8 +31,11 @@ const Register = (props) => {
     const [role, setRole] = useState('')
     const [city, setCity] = useState('')
     const [sport, setSport] = useState('')
+    const [image, setImage] = useState('')
     const [formErrors, setFormErrors] = useState({})
     const errors = {}
+
+    // console.log('image' , image)
 
     const resetAll = () => {
         setName('')
@@ -42,6 +45,7 @@ const Register = (props) => {
         setRole('')
         setCity('')
         setSport('')
+        setImage('')
     }
 
     const formValidation = () => {
@@ -89,16 +93,26 @@ const Register = (props) => {
 
         if (Object.keys(errors).length === 0) {
             setFormErrors({})
-
-            const formData = {
-                username: name,
-                email: email,
-                password: password,
-                phone: mobile,
-                role: role,
-                city: city,
-                sport: sport
-            }
+            
+            const formData = new FormData()
+            formData.append('username', name)
+            formData.append('email', email)
+            formData.append('password', password)
+            formData.append('phone', mobile)
+            formData.append('role', role)
+            formData.append('city', city)
+            formData.append('sport', sport)
+            formData.append('profilePicture', image)
+            // const formData = {
+            //     username: name,
+            //     email: email,
+            //     password: password,
+            //     phone: mobile,
+            //     role: role,
+            //     city: city,
+            //     sport: sport,
+            //     profilePicture: image
+            // }
             console.log(formData)
 
             dispatch(startPostUsers(formData))
@@ -128,18 +142,20 @@ const Register = (props) => {
             setCity(e.target.value)
         } else if (e.target.name === 'sports') {
             setSport(e.target.value)
+        } else if(e.target.name === 'image'){
+            setImage(e.target.files[0])
         }
     }
 
     return (
-        <div className>
+        <div>
             <div className='form-box element2'>
                 <h3 className='alignment'> Register on scout</h3>
-                <form onSubmit={handleFormSubmit} >
+                <form onSubmit={handleFormSubmit} encType="multipart/form-data" >
                     <div className='row'>
                         <div className='col-sm-6'>
                             <div className='mb-3'>
-                                <label className='form-label' for='name'>Name : </label>
+                                <label className='form-label'>Name : </label>
                                 <input type='text'
                                     className='form-control'
                                     id='name'
@@ -226,6 +242,9 @@ const Register = (props) => {
                             <br />
                         </div>
                     </div>
+
+                    <input type='file' name='image' onChange={handleChange}/>
+
                     <input type='checkbox'
                         name='checkbox'
                         checked={check}

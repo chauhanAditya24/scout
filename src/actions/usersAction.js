@@ -139,7 +139,7 @@ export const startUserLogin = (formData) => {
                 if(result.hasOwnProperty('error')){
                     alert(result.error)
                 }else{
-                    alert('logged in successfully')
+                    // alert('logged in successfully')
                     localStorage.setItem('token' , result.token)
                     dispatch(updateLoggedIn(true))
                     dispatch(startGetUsers())
