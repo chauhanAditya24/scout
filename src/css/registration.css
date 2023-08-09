@@ -1,0 +1,72 @@
+/* Your CSS file */
+.form-box {
+    width: 500px; 
+    padding: 20px;
+    border: 2px solid #ccc;
+    background-color: #f0f0f0; 
+    margin: 0 auto;
+    margin-left: 0; 
+    margin-top: 30px;
+    opacity: 0.99;
+  }
+  
+  .alignment{
+    align-items: center;
+    padding-left:100px;
+  }
+.alignment3{
+  align-items: center;
+  padding-left:500px;
+}
+  .alignment2{
+    align-items: center;
+    padding-left:170px;
+  }
+
+
+/* Your CSS file */
+.container-mine {
+    position: relative;
+    /* Add styles for the container (optional) */
+  }
+  
+  /* .element1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .element2 {
+    position: absolute;
+    top: 20px;
+    left: 500px;
+  } */
+  
+
+  /* Styles for form fields (optional) */
+  /* form label {
+    display: block;
+    margin-bottom: 10px;
+  } */
+  
+   /* form input,
+  form button {
+    width: 100%;
+    margin-bottom: 10px;
+  }  */
+/* Your CSS file */
+.background {
+    /* Set the background image */
+    /* Set background size and position */
+    background-size: cover;
+    background-position: center;
+    /* Set background repeat (optional) */
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 88.8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+   

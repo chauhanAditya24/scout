@@ -1,12 +1,13 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import '../css/booking.css'
 
 const BookingPage = (props) => {
 
-    const [ date , setDate] = useState('')
-    const [ startTime , setStartTime ] = useState('')
-    const [ endTime , setEndTime ] = useState('')
+    const [date, setDate] = useState('')
+    const [startTime, setStartTime] = useState('')
+    const [endTime, setEndTime] = useState('')
 
     const ground = useSelector((state) => {
         return state.grounds.specificGround
@@ -15,11 +16,11 @@ const BookingPage = (props) => {
     // console.log('gound inside booking page',ground)
 
     const hanldeChange = (e) => {
-        if(e.target.name === 'date'){
+        if (e.target.name === 'date') {
             setDate(e.target.value)
-        }else if(e.target.name === 'startTime'){
+        } else if (e.target.name === 'startTime') {
             setStartTime(e.target.value)
-        }else if(e.target.name === 'endTime'){
+        } else if (e.target.name === 'endTime') {
             setEndTime(e.target.value)
         }
     }
@@ -30,18 +31,18 @@ const BookingPage = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const arr= date.split('-').reverse()
+        const arr = date.split('-').reverse()
         const drr = arr.join('-')
         // console.log(typeof drr)
-        const time = startTime+'-'+endTime
+        const time = startTime + '-' + endTime
         const data = {
-            date:drr,
+            date: drr,
             time,
-            groundId:ground._id 
+            groundId: ground._id
         }
 
-        axios.post(`http://localhost:3088/scout/ground/book` , data , {
-            headers:{
+        axios.post(`http://localhost:3088/scout/ground/book`, data, {
+            headers: {
                 'authorization': localStorage.getItem('token')
             }
         })
@@ -59,22 +60,22 @@ const BookingPage = (props) => {
     const handleClick = (e) => {
         e.preventDefault()
 
-        const arr= date.split('-').reverse()
+        const arr = date.split('-').reverse()
         const drr = arr.join('-')
         // console.log(typeof drr)
-        const time = startTime+'-'+endTime
+        const time = startTime + '-' + endTime
         const data = {
-            date:drr,
+            date: drr,
             time,
-            groundId:ground._id 
+            groundId: ground._id
         }
-        axios.post(`http://localhost:3088/scout/ground/availability`,data,{
-            headers:{
+        axios.post(`http://localhost:3088/scout/ground/availability`, data, {
+            headers: {
                 'authorization': localStorage.getItem('token')
             }
         })
             .then((res) => {
-                console.log('data msg received',res.data)
+                console.log('data msg received', res.data)
                 alert(`the slot is ${res.data.msg}`)
             })
             .catch((err) => {
@@ -83,26 +84,36 @@ const BookingPage = (props) => {
     }
 
     return (
-        <div>
-            <h1>booking page</h1>
-            <h3>{ground.name}</h3>
-            <h3>location -: {ground.location}</h3>
-            <h3>timings -: {ground.timings}</h3>
-            <h3>price -: {ground.price}</h3>
+        <div className='container' style={{ paddingTop: '10px' }}>
+            <div className='row'>
+                <div className='col-sm-6'>
+                    <h1>{ground.name}</h1>
+                </div>
+                <div className='col-sm-6'>
+                    <div style={{ border: '2px solid #6F6F6F' }}>
+                        <h3>Timings<br />{ground.timings}</h3>
+                    </div>
+                    <div style={{ border: '2px solid #6F6F6F', marginTop: '10px' }}>
+                        <h3>location -: {ground.location}</h3>
+                    </div>
 
-            <div>
+                    <h3>price -: {ground.price}</h3>
+                </div>
+            </div>
+            <div className='container form-box'>
                 <form onSubmit={handleSubmit}>
-                    <label>select your date</label>
-                    <input type='date' name='date' value={date} onChange={hanldeChange}/><br/>
-                    <label>select your time</label><br/>
-                    <label>start time</label>
-                    <input type='time' name='startTime' value={startTime} onChange={hanldeChange}/>
-                    <label>end time</label>
-                    <input type='time' name='endTime' value={endTime} onChange={hanldeChange}/><br/>
-
-                    <button onClick={handleClick}> check availablity </button>
-
-                    <input type='submit' value='Book'/>
+                    <label className='form-label'>select your date</label>
+                    <input className='form-control' type='date' name='date' value={date} onChange={hanldeChange} /><br />
+                    <label className='form-label'>select your time</label><br />
+                    <label className='form-label'>start time</label>
+                    <input className='form-control' type='time' name='startTime' value={startTime} onChange={hanldeChange} />
+                    <label className='form-label'>end time</label>
+                    <input className='form-control' type='time' name='endTime' value={endTime} onChange={hanldeChange} /><br />
+                    <div style={{ alignItems: 'centre', paddingLeft: '50px' }}>
+                        <button className='btn btn-secondary' onClick={handleClick}> check availablity </button>
+                    </div>
+                    <br/>
+                    <input className='form-control btn btn-success btn-lg' type='submit' value='Book' />
                 </form>
             </div>
         </div>

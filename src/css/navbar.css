@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Borel&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* html {
+    font-size: 62.5%;
+} */
+
+.navbar-list li a{
+    font-family: "Borel", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #edf0f1;
+    text-decoration: none;
+    transition: all 0.3s ease 0s;
+}
+
+.navbar-list li a:hover {
+    color: olive;
+}
+
+.border-radius {
+    border-radius: 50px;
+}
+
+.headerNav {
+    padding: 0 4.8rem;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#54964C  ;
+}
+
+.headerNav .logo {
+    height: 110px;
+}
+
+
+.navbar-list{
+    display: flex;
+    gap: 4.8rem;
+    list-style: none;
+}

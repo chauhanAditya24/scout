@@ -35,12 +35,12 @@ const ListGround = (props) => {
 
     return(
         <div className='container'>
-            <h1>Grounds near your city : </h1>
-
+            <h1>Grounds in your city : </h1>
+            <div className='row'>
             { grounds && (
                     grounds.map((ground) => {
                         return (
-                            <div key={ground._id} className='card' style={{width: '18rem'}}>
+                            <div key={ground._id} className='card col-md-4 mb-4' style={{width: '18rem'}}>
                                 <div className='card-body'>
                                     <h5 className='card-title'> {ground.name} </h5>
                                     <p className='card-text'> Location : {ground.location} <br/>
@@ -56,6 +56,8 @@ const ListGround = (props) => {
                     })
             )}
             
+            </div>
+
             <button className='btn btn-primary' onClick={() => {
                 props.history.push('/')
             }}> back </button>
