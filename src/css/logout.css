@@ -1,0 +1,11 @@
+.paddings{
+    display: flex;
+    margin: auto;
+    padding: 10rem;
+    
+}
+
+.spacing{
+    /* padding-bottom: 50px; */
+    margin-bottom: 50px;
+}

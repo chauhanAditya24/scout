@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import {updateLoggedIn} from './actions/usersAction'
 import { getCities} from './actions/citiesAction'
 import { startGetSports } from './actions/sportsAction'
+import './css/home.css'
 
 const App = (props) => {
   
@@ -21,8 +22,7 @@ const App = (props) => {
   
 
   return (
-    <div>
-      <h1> the scout project</h1>
+    <div className='home-body'>
       <NavBar/>
     </div>
   )

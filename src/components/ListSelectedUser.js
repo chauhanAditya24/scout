@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
+import WhatsappLink from './WhatsappLink'
 
 const ListSelectedUser = (props) => {
 
@@ -16,6 +17,12 @@ const ListSelectedUser = (props) => {
                 player && (
                     <>
                         <h3>{player.username}</h3>
+
+                        <p> Description and image tag will be here</p>
+
+
+                        <WhatsappLink/>
+                        <br/>
                         <button onClick={() => {
                             props.history.push('/list/players')
                         }}>back</button>
