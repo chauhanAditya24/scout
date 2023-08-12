@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { startGetSports } from '../actions/sportsAction'
 import { getCities } from '../actions/citiesAction'
+import '../css/groundRegister.css'
 
 const RegisterGround = (props) => {
 
@@ -31,6 +32,7 @@ const RegisterGround = (props) => {
     const [ slot , setSlot] = useState('')
     const [ sport , setSport ] = useState('')
     const [capacity, setCapacity] = useState('')
+    const [ image , setImage] = useState('')
     const uid = id
     // client side validations
     const [ formErrors, setFormErrors] = useState({})
@@ -82,17 +84,30 @@ const RegisterGround = (props) => {
 
         if(Object.keys(errors).length === 0){
             setFormErrors({})
-            const formData = {
-                name,
-                location,
-                city,
-                price,
-                timings,
-                sport,
-                slotType:slot,
-                userId:uid,
-                capacity
-            }
+
+            const formData = new FormData()
+            formData.append('name', name)
+            formData.append('groundPicture', image)
+            formData.append('location', location)
+            formData.append('city', city)
+            formData.append('price', price)
+            formData.append('timings', timings)
+            formData.append('sport', sport)
+            formData.append('slotType', slot)
+            formData.append('userId', uid)
+            formData.append('capacity', capacity)
+
+            // const formData = {
+            //     name,
+            //     location,
+            //     city,
+            //     price,
+            //     timings,
+            //     sport,
+            //     slotType:slot,
+            //     userId:uid,
+            //     capacity
+            // }
             console.log(formData)
 
             axios.post('http://localhost:3088/scout/grounds/register',formData)
@@ -129,42 +144,47 @@ const RegisterGround = (props) => {
             setSlot(e.target.value)
         }else if(e.target.name === 'capacity'){
             setCapacity(e.target.value)
+        } else if(e.target.name === 'image'){
+            setImage(e.target.files[0])
         }
     }
 
     return (
-        <div>
+        <div className='ground-register'>
             <h1>register ground</h1>
-            <form onSubmit={handleSubmit}>
-                <label>Ground name : </label>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
+                <label className='form-label'>Ground name : </label>
                 <input type='text' 
                     name='name'
+                    className='form-control'
                     value={name}
                     onChange={handleChange}
                     placeholder='enter the gound name'
                 />
                 {formErrors.name && <span style={{color: 'red'}}> {formErrors.name} </span>}
                 <br/>
-                <label>ground's location</label>
+                <label className='form-label'>ground's location</label>
                 <input type='text'
                     name='location'
+                    className='form-control'
                     value={location}
                     onChange={handleChange}
                     placeholder='enter the address'
                 />
                 {formErrors.location && <span style={{color: 'red'}}> {formErrors.location}</span>}
                 <br/>
-                <label>price</label>
+                <label className='form-label'>price</label>
                 <input type='text'
                     name='price'
+                    className='form-control'
                     value={price}
                     onChange={handleChange}
                     placeholder='enter the price per person'
                 />
                 {formErrors.price && <span style={{color: 'red'}}> {formErrors.price}</span>}
                 <br/>
-                <label> select your city </label>
-                <select value={city} name='city' onChange={handleChange}>
+                <label className='form-label'> select your city </label>
+                <select className='form-select' value={city} name='city' onChange={handleChange}>
                     <option> select your city</option>
                     {
                         cities.map((city) => {
@@ -174,8 +194,8 @@ const RegisterGround = (props) => {
                         })
                     }
                 </select>{formErrors.city && <span style={{color: 'red'}}>{formErrors.city}</span>}<br/>
-                <label> enter the sport</label>
-                <select value={sport} name='sports' onChange={handleChange}>
+                <label className='form-label'> enter the sport</label>
+                <select className='form-select' value={sport} name='sports' onChange={handleChange}>
                     <option>select your sport</option>
                     {
                         sports.map((sport) => {
@@ -187,8 +207,9 @@ const RegisterGround = (props) => {
                 </select>{formErrors.sport && <span style={{color: 'red'}}> {formErrors.sport}</span>}<br/>
 
 
-                <label>timings</label>
+                <label className='form-label'>timings</label>
                 <input type='text'
+                    className='form-control'
                     name='time'
                     value={timings}
                     onChange={handleChange}
@@ -197,23 +218,33 @@ const RegisterGround = (props) => {
                 {formErrors.timings && <span style={{color: 'red'}}> {formErrors.timings}</span>}
                 <br/>
                 
-                <label> enter your timeframe</label>
+                <label className='form-label'> enter your timeframe</label>
                 <input type='text' 
                     name='slot'
+                    className='form-control'
                     value={slot}
                     onChange={handleChange}
                     placeholder='enter the timeframe a single user can play min is 1 hour - max is 3 hours'
                 />{formErrors.slot && <span style={{color: 'red'}}> {formErrors.slot}</span>}<br/>
-                <label>max capacity</label>
+                <label className='form-label'>max capacity</label>
                 <input type='text'
                     name='capacity'
+                    className='form-control'
                     onChange={handleChange}
                     placeholder='both team combined max players'
                     value={capacity}
                 />{formErrors.capacity && <span style={{color: 'red'}}>  {formErrors.capacity}</span>}<br/>
 
+                <label className='form-label'>enter the ground's picture : </label>
+                <input type='file' 
+                    name='image'
+                    onChange={handleChange}
+                    className='form-control'
+                />
 
-                <input type='submit' value='register ground'/>
+                <br/>
+
+                <input type='submit' className='btn btn-success' value='register ground'/>
             </form>
         </div>
 

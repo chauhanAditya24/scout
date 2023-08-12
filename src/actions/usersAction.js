@@ -63,7 +63,7 @@ export const updateDetails = (formData) => {
         })
         .then((res) => {
             const result = res.data
-            // console.log(result)
+            console.log('result from the put request',result)
             dispatch(currentUser(result))
         })
         .catch((err) => {

@@ -88,6 +88,7 @@ const BookingPage = (props) => {
             <div className='row'>
                 <div className='col-sm-6'>
                     <h1>{ground.name}</h1>
+                    <img alt='...' width='800' height='500' src={`http://localhost:3088/images/${ground.groundPicture}`}/>
                 </div>
                 <div className='col-sm-6'>
                     <div style={{ border: '2px solid #6F6F6F' }}>

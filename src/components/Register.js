@@ -32,6 +32,7 @@ const Register = (props) => {
     const [city, setCity] = useState('')
     const [sport, setSport] = useState('')
     const [image, setImage] = useState('')
+    const [ bio , setBio ] = useState('')
     const [formErrors, setFormErrors] = useState({})
     const errors = {}
 
@@ -46,6 +47,7 @@ const Register = (props) => {
         setCity('')
         setSport('')
         setImage('')
+        setBio('')
     }
 
     const formValidation = () => {
@@ -103,6 +105,7 @@ const Register = (props) => {
             formData.append('city', city)
             formData.append('sport', sport)
             formData.append('profilePicture', image)
+            formData.append('bio',bio)
             // const formData = {
             //     username: name,
             //     email: email,
@@ -144,6 +147,8 @@ const Register = (props) => {
             setSport(e.target.value)
         } else if(e.target.name === 'image'){
             setImage(e.target.files[0])
+        } else if(e.target.name === 'bio'){
+            setBio(e.target.value)
         }
     }
 
@@ -244,7 +249,10 @@ const Register = (props) => {
                     </div>
 
                     <input type='file' name='image' onChange={handleChange}/>
-
+                    <br/>
+                    <br/>
+                    <textarea name='bio' placeholder=' Eg : write something about the position you play' value={bio} onChange={handleChange} rows='4' cols='30'></textarea>
+                    <br/>
                     <input type='checkbox'
                         name='checkbox'
                         checked={check}
