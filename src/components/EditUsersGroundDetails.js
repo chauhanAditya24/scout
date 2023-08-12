@@ -24,17 +24,40 @@ const EditUsersGroundDetails = (props) => {
         dispatch(addEditGround(selectedGround[0]))
     }
 
-    // console.log('ownersGround',grounds)
+    const handleClickBack = (e) => {
+        // console.log('name in clickback' , e.target.name)
+        props.history.push('/')
+    }
+
+    console.log('ownersGround',grounds)
 
     return (
         <div>
-            <h1>listing your ground</h1>
+            <h1>Your ground: </h1>
             {
                 grounds.map((ground) => {
                     return (
-                        <h3 key={ground._id}>{ground.name}  <Link to='/edit/ground/details' onClick={() => {
+                        <div key={ground._id}>
+                        <h3 >{ground.name} </h3>
+                        <div className='row'>
+                            <div className='col md-6'>
+                                <img width='600' height='300' alt={ground.name} src={`http://localhost:3088/images/${ground.groundPicture}`}/>
+                            </div>
+                            <div className='col md-6' style={{backgroundColor: '#f0f0f0', border: '2px solid #ccc', padding: '50px', marginRight: '150px'}}>
+                                <div>
+                                    <h2> Location : {ground.location} </h2>
+                                    <h2> Price : {ground.price} </h2>
+                                    <h2> Soprt :{ground.sport} </h2>
+                                    <h2> Timings : {ground.timings} </h2>
+                                    <h2> Ground's Capacity : {ground.capacity} </h2>
+                                </div>
+                            </div>
+                        </div> 
+                        <Link to='/edit/ground/details' name='edit' onClick={() => {
                             handleClick(ground._id)
-                        }}><button> edit ground details</button> </Link></h3>
+                        }}><button className='btn btn-primary btn-lg'> edit ground details</button> </Link>
+                        <button name='back' onClick={handleClickBack} className='btn btn-secondary btn-lg'> back </button>
+                        </div>
                     )
                 })
             }
