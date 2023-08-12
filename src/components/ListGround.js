@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { startGetSpecificGrounds , addSelectedGround} from '../actions/groundsAction'
-import {Link} from 'react-router-dom'
+import { startGetSpecificGrounds, addSelectedGround } from '../actions/groundsAction'
+import { Link } from 'react-router-dom'
 
 const ListGround = (props) => {
-    
+
     const dispatch = useDispatch()
 
-    const { city , sport , grounds } = useSelector((state) => {
+    const { city, sport, grounds } = useSelector((state) => {
         return {
             city: state.cities.city,
             sport: state.sports.sport,
@@ -20,11 +20,11 @@ const ListGround = (props) => {
             city,
             sport
         }))
-    }, [dispatch,city,sport])
+    }, [dispatch, city, sport])
 
 
 
-    console.log(' inside the grounds specific component ,' ,city,sport,grounds)
+    console.log(' inside the grounds specific component ,', city, sport, grounds)
 
     const handleClick = (id) => {
         const result = grounds.filter((ground) => {
@@ -33,18 +33,19 @@ const ListGround = (props) => {
         dispatch(addSelectedGround(result[0]))
     }
 
-    return(
+    return (
         <div className='container'>
             <h1>Grounds in your city : </h1>
             <div className='row'>
-            { grounds && (
+                {grounds && (
                     grounds.map((ground) => {
                         return (
-                            <div key={ground._id} className='card col-md-4 mb-4' style={{width: '18rem'}}>
+                            <div key={ground._id} className='card col-md-4 mb-4' style={{ width: '18rem' }}>
+                                <img className='card-img-top' src={`http://localhost:3088/images/${ground.groundPicture}`} alt={`${ground.name}`} />
                                 <div className='card-body'>
                                     <h5 className='card-title'> {ground.name} </h5>
-                                    <p className='card-text'> Location : {ground.location} <br/>
-                                        Sport: {ground.sport} <br/>
+                                    <p className='card-text'> Location : {ground.location} <br />
+                                        Sport: {ground.sport} <br />
                                         Timings: {ground.timings}
                                     </p>
                                     <Link to='/ground/details' onClick={() => {
@@ -54,8 +55,8 @@ const ListGround = (props) => {
                             </div>
                         )
                     })
-            )}
-            
+                )}
+
             </div>
 
             <button className='btn btn-primary' onClick={() => {

@@ -14,6 +14,13 @@ const ListPlayers = (props) => {
         }
     })
 
+    let playersOnly
+    if(users){
+        playersOnly = users.filter((ele) => {
+            return ele.role === 'player'
+        })
+    }
+
     useEffect(() => {
 
         dispatch(startGetSpecificUsers({
@@ -30,32 +37,33 @@ const ListPlayers = (props) => {
         dispatch(startGetSelectedPlayer(id))
     }
 
-    let ans 
-    if(users.length > 0){
-        users.forEach((ele) => {
-            if(ele._id === '64d37f0856414cc8e4453c6a'){
-                ans = '1691582216979-testlogo.png'
-                console.log('path to profile',ans)
-            }
-        })
-    }
+    // let ans 
+    // if(users.length > 0){
+    //     users.forEach((ele) => {
+    //         if(ele._id === '64d37f0856414cc8e4453c6a'){
+    //             ans = '1691582216979-testlogo.png'
+    //             console.log('path to profile',ans)
+    //         }
+    //     })
+    // }
 
     return (
         <div className='container'>
             <h1> Players in your city: </h1>
 
-            {users && ( <img src={`http://localhost:3088/images/${ans}`} alt='....'/>)}
+            {/* {users && ( <img src={`http://localhost:3088/images/${ans}`} alt='....'/>)} */}
 
             <div className='row'>
                 {
                     users && (
-                        users.map((user) => {
+                        playersOnly.map((user) => {
                             return (
                                 <div key={user._id} className='card col-md-4 mb-4'>
+                                    <img width='200' height='350' className='card-img-top' src={`http://localhost:3088/images/${user.profilePicture}`} alt={`${user.username}`}/>
                                     <div className='card-body'>
                                         <h5 className='card-title'>{user.username}</h5>
                                         <p className='card-text'>
-                                           email: {user.email}
+                                           About me - {user.bio}
                                         </p>
                                         <Link to='/list/selected/player' onClick={() => {
                                     handleClick(user._id)
