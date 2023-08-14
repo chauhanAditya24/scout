@@ -38,7 +38,11 @@ const BookingPage = (props) => {
         const data = {
             date: drr,
             time,
-            groundId: ground._id
+            groundId: ground._id,
+            price: ground.price,
+            name: ground.name,
+            location: ground.location,
+            groundPicture:ground.groundPicture
         }
 
         axios.post(`http://localhost:3088/scout/ground/book`, data, {
@@ -60,15 +64,20 @@ const BookingPage = (props) => {
     const handleClick = (e) => {
         e.preventDefault()
 
+        // console.log('date to check' , date)
         const arr = date.split('-').reverse()
+        // console.log(arr)
         const drr = arr.join('-')
-        // console.log(typeof drr)
+        // console.log(drr)
         const time = startTime + '-' + endTime
         const data = {
             date: drr,
             time,
             groundId: ground._id
         }
+
+        console.log('data check' , data)
+
         axios.post(`http://localhost:3088/scout/ground/availability`, data, {
             headers: {
                 'authorization': localStorage.getItem('token')

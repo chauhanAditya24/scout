@@ -1,0 +1,7 @@
+.profile-picture {
+    width: 70px; /* Set the width and height to create a square */
+    height: 70px;
+    border-radius: 50%; /* Make it circular by setting the border-radius to 50% */
+    object-fit: cover; /* Preserve the aspect ratio and cover the whole circle */
+  }
+  

@@ -4,13 +4,15 @@ import usersReducers from '../reducers/usersReducers'
 import groundsReducer from '../reducers/groundsReducer'
 import citiesReducer from '../reducers/citiesReducer'
 import sportsReducer from '../reducers/sportsReducer'
+import bookingsReducer from '../reducers/bookingsReducer'
 
 const configureStore = () => {
     const store = createStore( combineReducers({
         users: usersReducers,
         grounds: groundsReducer,
         cities:  citiesReducer,
-        sports: sportsReducer
+        sports: sportsReducer,
+        bookings: bookingsReducer
     }) , applyMiddleware(thunk))
 
     return store

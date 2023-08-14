@@ -27,7 +27,7 @@ const Home = () => {
             sports: state.sports.sports,
             sport: state.sports.sport,
             role: state.users.role,
-            grounds: state.grounds.ownersGround
+            grounds: state.grounds.ownersGround,
         }
         return obj
     })
@@ -44,16 +44,17 @@ const Home = () => {
 
     return (
         <div>
-            <h1>Home component </h1>
+            <h1>Home component</h1>
             {role === 'manager' && <Link to='/grounds/register'> register your ground <span>|</span></Link>}
             {grounds.length > 0 && <Link to='/grounds/user/edit'> edit your ground <span>|</span></Link>}
 
             <span><Link to='/players'> Players </Link> | <Link to='/grounds/all'> Grounds </Link></span>
             <UsersDashboard />
-            {/* <TestComponent/> */}
+            
+            {/* // <TestComponent/> */}
 
 
-            {/* <WhatsappLink/> */}
+            {/* // <WhatsappLink/> */}
 
             <div className='home-box'>
                 <label className='form-label centre-align'> <h3>Select City </h3></label>
