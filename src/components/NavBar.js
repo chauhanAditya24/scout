@@ -32,7 +32,7 @@ const NavBar = (props) => {
     })
 
 
-    console.log(loggedIn)
+    // console.log('user details' , user)
 
     return (
         <div className='border-radius'>
