@@ -42,7 +42,8 @@ const BookingPage = (props) => {
             price: ground.price,
             name: ground.name,
             location: ground.location,
-            groundPicture:ground.groundPicture
+            groundPicture:ground.groundPicture,
+            managerId: ground.userId
         }
 
         axios.post(`http://localhost:3088/scout/ground/book`, data, {

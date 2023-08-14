@@ -7,6 +7,23 @@ export const addBookings = (data) => {
     }
 }
 
+export const startGetManagerBookings = () => {
+    return (dispatch) => {
+        axios.get('http://localhost:3088/scout/bookings/manager', {
+            headers:{
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+            .then((res) => {
+                console.log(res.data)
+                dispatch(addBookings(res.data))
+            })
+            .catch((err) =>{
+                console.log(err)
+            })
+    }
+}
+
 export const startGetBookings = () => {
     return (dispatch) => {
         axios.get('http://localhost:3088/scout/bookings', {
