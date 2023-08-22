@@ -1,0 +1,9 @@
+.home-box-pic {
+    width: 600px; 
+    padding: 20px;
+    border: 2px solid #ccc;
+    background-color: #f0f0f0; 
+    margin: 0 auto;
+    margin-left: 370px; 
+    margin-top: 30px;
+    display: flex;}  

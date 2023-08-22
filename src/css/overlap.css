@@ -1,0 +1,21 @@
+/* Style for the available toast */
+.toast-available {
+    background-color: green;
+    /* ... other styles ... */
+  }
+  
+  /* Style for the not available toast */
+  .toast-not-available {
+    background-color: red;
+    /* ... other styles ... */
+  }
+  
+  /* Overlap the not-available toast with the available toast */
+  .toast-not-available {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: -10px; /* Adjust as needed */
+    margin-bottom: -10px; /* Adjust as needed */
+  }
+  

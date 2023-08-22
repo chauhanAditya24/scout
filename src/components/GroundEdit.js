@@ -1,15 +1,17 @@
 import axios from "axios"
 import React from "react"
-import { useState,useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { startGetSports } from '../actions/sportsAction'
 import { getCities } from '../actions/citiesAction'
+import '../css/overlap.css'
 
 const GroundEdit = (props) => {
 
+    const [update, setUpdate] = useState(false)
     const dispatch = useDispatch()
 
-    const { ground, id,cities,sports } = useSelector((state) => {
+    const { ground, id, cities, sports } = useSelector((state) => {
         return {
             ground: state.grounds.groundToEdit,
             id: state.users.userid,
@@ -18,11 +20,24 @@ const GroundEdit = (props) => {
         }
     })
 
-    
+
     useEffect(() => {
         dispatch(getCities())
         dispatch(startGetSports())
-    }, [dispatch])
+
+        if (update) {
+            const timeout = setTimeout(() => {
+                setUpdate(false)
+            }, 2000)
+
+            setTimeout(() => {
+                    props.history.push('/')
+                }, 2000)
+
+            return () => clearTimeout(timeout)
+        }
+
+    }, [dispatch, props.history, update])
 
     const [name, setName] = useState(ground.name)
     const [location, setLocation] = useState(ground.location)
@@ -90,8 +105,9 @@ const GroundEdit = (props) => {
             axios.put(`http://localhost:3088/scout/grounds/update/${ground._id}`, formData)
                 .then((result) => {
                     if (result.data) {
-                        alert('data changed successfully')
-                        props.history.push('/')
+                        // alert('data changed successfully')
+                        setUpdate(true)
+                        // props.history.push('/')
                     } else {
                         alert('some internal error please try again later')
                     }
@@ -130,9 +146,21 @@ const GroundEdit = (props) => {
         props.history.push('/')
     }
 
+    const handleSubmitClick = () => {
+        setUpdate(false)
+    }
+
     return (
-        <div style={{ width: '500px', marginLeft: '300px',backgroundColor: '#f0f0f0',border: '2px solid #ccc', padding: '50px' }}>
-            <h2>edit ground details</h2>
+        <div style={{ width: '500px', marginLeft: '490px', marginTop: '18px', marginBottom: '18px', backgroundColor: '#f0f0f0', border: '2px solid #ccc', padding: '50px' }}>
+            <h2>Edit ground details</h2>
+            {update && (
+                <div className="toast show position-fixed bottom-0 end-0 p-2 m-4 toast-available" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div className="toast-header">
+                        <strong className="me-auto">Successfully updated details</strong>
+                        <button type="button" className="btn-close" onClick={handleSubmitClick}></button>
+                    </div>
+                </div>
+            )}
             <div>
                 <form onSubmit={handleSubmit}>
                     <label className="form-label">Ground name : </label>
@@ -193,7 +221,7 @@ const GroundEdit = (props) => {
                         placeholder='both team combined max players'
                         value={capacity}
                     />{formErrors.capacity && <span style={{ color: 'red' }}>  {formErrors.capacity}</span>}<br />
-                    
+
                     <label className='form-label'> City:</label>
 
                     <select className='form-select' value={city} name='city' onChange={handleChange}>
@@ -217,10 +245,8 @@ const GroundEdit = (props) => {
                             })
                         }
                     </select>{formErrors.sport && <span style={{ color: 'red' }}> {formErrors.sport}</span>}<br />
-
-
-                    <input className="btn btn-lg btn-success" type='submit' value='edit details' /> 
-                    <button onClick={handleClick} style={{marginLeft:'10px'}} className="btn btn-lg btn-danger"> Cancel </button>
+                    <input className="btn btn-lg btn-success" type='submit' value='edit details' />
+                    <button onClick={handleClick} style={{ marginLeft: '10px' }} className="btn btn-lg btn-danger"> Cancel </button>
                 </form>
             </div>
         </div>

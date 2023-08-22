@@ -5,13 +5,18 @@ const initialState = {
     specificGround: {},
     ownersGround:[],
     groundToEdit: {},
-    groundToEditId:''
+    groundToEditId:'',
+    groundPictureUpdate:{}
 }
 
 const groundsReducer = ( state = initialState , action) => {
     switch( action.type ) {
         case 'SET_GROUNDS': {
             return { ...state , groundsList: [...action.payload] }
+        }
+
+        case 'EDIT_GROUND_PICTURE':{
+            return { ...state , groundPictureUpdate:action.payload }
         }
 
         case 'EDIT_GROUND': {

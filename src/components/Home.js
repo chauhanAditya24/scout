@@ -7,6 +7,7 @@ import { selectedSport } from '../actions/sportsAction'
 import { startGetRole } from '../actions/usersAction'
 import { startGetUsersGround } from '../actions/groundsAction'
 import '../css/home.css'
+import '../css/heading.css'
 // import WhatsappLink from './WhatsappLink'
 // import TestComponent from './TestComponent'
 
@@ -44,20 +45,25 @@ const Home = () => {
 
     return (
         <div>
-            <h1>Home component</h1>
-            {role === 'manager' && <Link to='/grounds/register'> register your ground <span>|</span></Link>}
-            {grounds.length > 0 && <Link to='/grounds/user/edit'> edit your ground <span>|</span></Link>}
 
-            <span><Link to='/players'> Players </Link> | <Link to='/grounds/all'> Grounds </Link></span>
-            <UsersDashboard />
-            
+            <div style={{ marginTop: '50px' }}>
+                <h1 className='animated-heading' style={{ marginLeft: '570px' }}>Welcome to Scout !</h1>
+            </div>
+
+            {/* <h1>Home component</h1> */}
+            {role === 'manager' && <Link to='/grounds/register'><button style={{borderRadius:'10px', marginRight:'10px'}} className='btn btn-primary'> Register your ground </button></Link>}
+            {role === 'manager' && <Link to='/grounds/user/edit'><button style={{borderRadius:'10px'}} className='btn btn-primary'> Edit your ground </button></Link>}
+
+            {/* <span><Link to='/players'> Players </Link> | <Link to='/grounds/all'> Grounds </Link></span> */}
+            {/* <UsersDashboard /> */}
+
             {/* // <TestComponent/> */}
 
 
             {/* // <WhatsappLink/> */}
 
-            <div className='home-box'>
-                <label className='form-label centre-align'> <h3>Select City </h3></label>
+            <div style={{ marginTop: '50px' }} className='home-box'>
+                <label className='form-label centre-align'> <h3>Select City and Sport</h3></label>
                 <select className='form-select' value={city} onChange={handleChangeCity}>
                     <option>select the city</option>
                     {

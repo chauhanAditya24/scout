@@ -6,15 +6,29 @@ import { startPostUsers } from '../actions/usersAction'
 import { getCities } from '../actions/citiesAction'
 import { startGetSports } from '../actions/sportsAction'
 import '../css/registration.css'
+import '../css/overlap.css'
 
 const Register = (props) => {
 
     const dispatch = useDispatch()
+    const [update, setUpdate] = useState(false)
 
     useEffect(() => {
         dispatch(getCities())
         dispatch(startGetSports())
-    }, [dispatch])
+
+        if (update) {
+            const timeout = setTimeout(() => {
+                setUpdate(false)
+            }, 2000)
+
+            setTimeout(() => {
+                props.history.push('/login')
+            }, 2000)
+
+            return () => clearTimeout(timeout)
+        }
+    }, [dispatch, update, props.history])
 
     const { cities, sports } = useSelector((state) => {
         return {
@@ -32,7 +46,7 @@ const Register = (props) => {
     const [city, setCity] = useState('')
     const [sport, setSport] = useState('')
     const [image, setImage] = useState('')
-    const [ bio , setBio ] = useState('')
+    const [bio, setBio] = useState('')
     const [formErrors, setFormErrors] = useState({})
     const errors = {}
 
@@ -95,7 +109,7 @@ const Register = (props) => {
 
         if (Object.keys(errors).length === 0) {
             setFormErrors({})
-            
+
             const formData = new FormData()
             formData.append('username', name)
             formData.append('email', email)
@@ -105,7 +119,7 @@ const Register = (props) => {
             formData.append('city', city)
             formData.append('sport', sport)
             formData.append('profilePicture', image)
-            formData.append('bio',bio)
+            formData.append('bio', bio)
             // const formData = {
             //     username: name,
             //     email: email,
@@ -119,9 +133,9 @@ const Register = (props) => {
             console.log(formData)
 
             dispatch(startPostUsers(formData))
-
+            setUpdate(true)
             resetAll()
-            props.history.push('/login')
+            // props.history.push('/login')
         } else {
             setFormErrors(errors)
         }
@@ -145,17 +159,29 @@ const Register = (props) => {
             setCity(e.target.value)
         } else if (e.target.name === 'sports') {
             setSport(e.target.value)
-        } else if(e.target.name === 'image'){
+        } else if (e.target.name === 'image') {
             setImage(e.target.files[0])
-        } else if(e.target.name === 'bio'){
+        } else if (e.target.name === 'bio') {
             setBio(e.target.value)
         }
+    }
+
+    const handleSubmitClick = () => {
+        setUpdate(false)
     }
 
     return (
         <div>
             <div className='form-box element2'>
                 <h3 className='alignment'> Register on scout</h3>
+                {update && (
+                    <div className="toast show position-fixed bottom-0 end-0 p-2 m-4 toast-available" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div className="toast-header">
+                            <strong className="me-auto">Successfully registered your account</strong>
+                            <button type="button" className="btn-close" onClick={handleSubmitClick}></button>
+                        </div>
+                    </div>
+                )}
                 <form onSubmit={handleFormSubmit} encType="multipart/form-data" >
                     <div className='row'>
                         <div className='col-sm-6'>
@@ -248,11 +274,11 @@ const Register = (props) => {
                         </div>
                     </div>
 
-                    <input type='file' name='image' onChange={handleChange}/>
-                    <br/>
-                    <br/>
+                    <input type='file' name='image' onChange={handleChange} />
+                    <br />
+                    <br />
                     <textarea name='bio' placeholder=' Eg : write something about the position you play' value={bio} onChange={handleChange} rows='4' cols='30'></textarea>
-                    <br/>
+                    <br />
                     <input type='checkbox'
                         name='checkbox'
                         checked={check}

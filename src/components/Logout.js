@@ -20,11 +20,13 @@ const Logout = (props) => {
     }
 
     return (
-        <div>
-            <h5>are you sure you want to logout? </h5>
-            <div className='row paddings'>
-                <button className='btn btn-success btn-lg spacing' onClick={hanldeClickYes}> Yes </button><br />
-                <button className='btn btn-danger btn-lg' onClick={handleClickNo}> Cancel</button>
+        <div className='container'>
+            <div className='home-box' style={{marginTop:'50px',marginLeft:'370px' ,width: '500px', height: '300px' }}>
+                <h5 style={{marginLeft:'80px'}}> Are you sure you want to logout? </h5><br/>
+                <div className='row '>
+                    <button className='btn btn-success btn-lg spacing' onClick={hanldeClickYes}> Yes </button><br />
+                    <button className='btn btn-danger btn-lg' onClick={handleClickNo}> Cancel</button>
+                </div>
             </div>
         </div>
     )
