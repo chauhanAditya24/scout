@@ -15,7 +15,7 @@ const ListPlayers = (props) => {
     })
 
     let playersOnly
-    if(users){
+    if (users) {
         playersOnly = users.filter((ele) => {
             return ele.role === 'player'
         })
@@ -48,37 +48,54 @@ const ListPlayers = (props) => {
     // }
 
     return (
-        <div className='container'>
-            <h1> Players in your city: </h1>
+        <div>
+            {
+                users.length > 0 ? (
+                    <div className='container'>
+                        <h1> Players in your city: </h1>
 
-            {/* {users && ( <img src={`http://localhost:3088/images/${ans}`} alt='....'/>)} */}
+                        {/* {users && ( <img src={`http://localhost:3088/images/${ans}`} alt='....'/>)} */}
 
-            <div className='row'>
-                {
-                    users && (
-                        playersOnly.map((user) => {
-                            return (
-                                <div key={user._id} className='card col-md-4 mb-4'>
-                                    <img width='200' height='350' className='card-img-top' src={`http://localhost:3088/images/${user.profilePicture}`} alt={`${user.username}`}/>
-                                    <div className='card-body'>
-                                        <h5 className='card-title'>{user.username}</h5>
-                                        <p className='card-text'>
-                                           About me - {user.bio}
-                                        </p>
-                                        <Link to='/list/selected/player' onClick={() => {
-                                    handleClick(user._id)
-                                }}><button className='btn btn-info'>view detials</button></Link>
+                        <div className='row'>
+                            {
+                                users && (
+                                    playersOnly.map((user) => {
+                                        return (
+                                            <div style={{backgroundColor:'#f5f5f5',border:'1px solid grey',width:'430px',marginLeft:'10px'}} key={user._id} className='card col-md-4 mb-4'>
+                                                <img style={{marginTop:'7px'}} width='200' height='350' className='card-img-top' src={`http://localhost:3088/images/${user.profilePicture}`} alt={`${user.username}`} />
+                                                <div className='card-body'>
+                                                    <h5 className='card-title'>{user.username}</h5>
+                                                    <p className='card-text'>
+                                                        About me - {user.bio}
+                                                    </p>
+                                                    <Link to='/list/selected/player' onClick={() => {
+                                                        handleClick(user._id)
+                                                    }}><button className='btn btn-info'>view detials</button></Link>
 
-                                    </div>
-                                </div>
-                            )
-                        })
-                    )
-                }
-                </div>
-                <button className='btn btn-primary' onClick={() => {
-                    props.history.push('/')
-                }}> back </button>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                )
+                            }
+                        </div>
+                        <button className='btn btn-primary' onClick={() => {
+                            props.history.push('/')
+                        }}> back </button>
+                    </div>
+                ) : (
+                    <div style={{ marginTop: '20px' }} className='alert alert-info'>
+                        No player available for this sport/city.
+                        <br/> Redirecting you to the home page 
+                        {
+                            setTimeout(() => {
+                                props.history.push('/')
+                            } , '3000')
+                        }
+                    </div>
+                )
+            }
+
         </div>
     )
 }
@@ -108,4 +125,37 @@ export default ListPlayers
 //             <button onClick={() => {
 //                 props.history.push('/')
 //             }}> back </button>
+//         </div>
+
+// <div className='container'>
+//             <h1> Players in your city: </h1>
+
+//             {/* {users && ( <img src={`http://localhost:3088/images/${ans}`} alt='....'/>)} */}
+
+//             <div className='row'>
+//                 {
+//                     users && (
+//                         playersOnly.map((user) => {
+//                             return (
+//                                 <div key={user._id} className='card col-md-4 mb-4'>
+//                                     <img width='200' height='350' className='card-img-top' src={`http://localhost:3088/images/${user.profilePicture}`} alt={`${user.username}`}/>
+//                                     <div className='card-body'>
+//                                         <h5 className='card-title'>{user.username}</h5>
+//                                         <p className='card-text'>
+//                                            About me - {user.bio}
+//                                         </p>
+//                                         <Link to='/list/selected/player' onClick={() => {
+//                                     handleClick(user._id)
+//                                 }}><button className='btn btn-info'>view detials</button></Link>
+
+//                                     </div>
+//                                 </div>
+//                             )
+//                         })
+//                     )
+//                 }
+//                 </div>
+//                 <button className='btn btn-primary' onClick={() => {
+//                     props.history.push('/')
+//                 }}> back </button>
 //         </div>

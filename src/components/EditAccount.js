@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { updateDetails } from '../actions/usersAction'
 import { startGetSports } from '../actions/sportsAction'
 import { getCities } from '../actions/citiesAction'
+import '../css/groundRegister.css'
 
 const EditAccount = (props) => {
 
+    const [update, setUpdate] = useState(false)
     const dispatch = useDispatch()
 
     const { user, cities, sports } = useSelector((state) => {
@@ -21,7 +23,17 @@ const EditAccount = (props) => {
     useEffect(() => {
         dispatch(getCities())
         dispatch(startGetSports())
-    }, [dispatch])
+
+        if (update) {
+            const timeout = setTimeout(() => {
+                setUpdate(false)
+            }, 2000)
+            setTimeout(() => {
+                props.history.push('/account')
+            }, 2000)
+            return () => clearTimeout(timeout)
+        }
+    }, [dispatch, props.history, update])
 
     // console.log(user)
 
@@ -96,6 +108,7 @@ const EditAccount = (props) => {
             console.log('updated from data', formData)
 
             dispatch(updateDetails(formData))
+            setUpdate(true)
 
         }
 
@@ -120,13 +133,25 @@ const EditAccount = (props) => {
     }
 
     const handleClick = (e) => {
-        props.history.push('/')
+        props.history.push('/account')
+    }
+
+    const handleSubmitClick = () => {
+        setUpdate(false)
     }
 
     return (
         <div>
-            <div style={{ width: '500px', marginLeft: '300px' }}>
+            <div className='ground-register' style={{ marginTop: '50px', marginBottom: '50px' }}>
                 <h1>Edit your account details</h1>
+                {update && (
+                    <div className="toast show position-fixed bottom-0 end-0 p-2 m-4 toast-available" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div className="toast-header">
+                            <strong className="me-auto">Successfully updated your details</strong>
+                            <button type="button" className="btn-close" onClick={handleSubmitClick}></button>
+                        </div>
+                    </div>
+                )}
                 <form onSubmit={handleSubmit} >
                     <label className='form-label'> Name: </label>
                     <input type='text'

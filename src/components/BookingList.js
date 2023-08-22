@@ -24,7 +24,7 @@ const BookingList = (props) => {
         } else if (user.role === 'manager') {
             dispatch(startGetManagerBookings())
         }
-    }, [dispatch])
+    }, [dispatch,user.role])
 
     const handleCancel = (id) => {
         axios.get(`http://localhost:3088/scout/bookings/cancel/${id}`, {
@@ -44,22 +44,21 @@ const BookingList = (props) => {
     }
 
     return (
-        <div>
-
+        <div className="container" style={{marginTop:'10px'}}>
             {bookings.length ? (
                 <div>
                     {user.role === 'player' ? (
                         <div>
-                            <h1>Listing your booking/s - {bookings.length}</h1>
+                            <h1 style={{marginBottom:'20px'}}>You have {bookings.length} booking/s</h1>
                             {
                                 bookings.map((booking) => {
                                     return (
-                                        <div style={{ border: '2px solid #ccc', backgroundColor: '#f0f0f0', width: '550px', paddingLeft: '20px', paddingTop: '10px', paddingBottom: '10px', marginLeft: '50px' }} key={booking._id}>
-                                            <h3> Ground name -: {booking.name}</h3>
-                                            <h3> Date -: {booking.date}</h3>
-                                            <h3>Time -: {booking.time}</h3>
-                                            <h3>Address -: {booking.location} </h3>
-                                            <h3>Booking fee -: {booking.price} per hour/slot</h3>
+                                        <div style={{ border: '2px solid #ccc', backgroundColor: '#f0f0f0', width: '550px', paddingLeft: '20px',borderRadius:'10px', paddingTop: '10px', paddingBottom: '10px', marginLeft: '50px', marginBottom:'20px' }} key={booking._id}>
+                                            <h4> Ground name -: {booking.name}</h4>
+                                            <h4> Date -: {booking.date}</h4>
+                                            <h4>Time -: {booking.time}</h4>
+                                            <h4>Address -: {booking.location} </h4>
+                                            <h4>Booking fee -: {booking.price} per hour/slot</h4>
                                             <button onClick={() => {
                                                 handleCancel(booking._id)
                                             }} className="btn btn-lg btn-danger"> Cancel </button>
@@ -74,7 +73,7 @@ const BookingList = (props) => {
                             {
                                 bookings.map((booking) => {
                                     return (
-                                        <div style={{ border: '2px solid #ccc', backgroundColor: '#f0f0f0', width: '550px', paddingLeft: '20px', paddingTop: '10px', paddingBottom: '10px', marginLeft: '50px' }} key={booking._id}>
+                                        <div style={{ border: '2px solid #ccc', backgroundColor: '#f0f0f0', width: '550px', paddingLeft: '20px', borderRadius:'10px', paddingTop: '10px', paddingBottom: '10px', marginLeft: '50px', marginBottom:'20px' }} key={booking._id}>
                                             <h3> Ground name -: {booking.name}</h3>
                                             <h3> Date -: {booking.date}</h3>
                                             <h3>Time -: {booking.time}</h3>
@@ -87,8 +86,15 @@ const BookingList = (props) => {
                     )}
                 </div>
             ) : (
-                <div>
+                <div style={{marginTop:'20px'}} className="alert alert-info container" >
                     <h3> No bookings yet . Please make your booking</h3>
+                    <br/>
+                    Redircting you to the home page ... 
+                    {
+                            setTimeout(() => {
+                                props.history.push('/')
+                            } , '3000')
+                        }
                 </div>
             )}
 

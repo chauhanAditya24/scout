@@ -161,7 +161,8 @@ export const startPostUsers = (formData) => {
                 if(user.hasOwnProperty('error')){
                     alert(user.error)
                 }else{
-                    alert('thanks for registering with us please login.')
+                    // alert('thanks for registering with us please login.')
+                    console.log('thanks for registering with us please login.')
                 }
             })
             .catch((err) => {
@@ -180,7 +181,11 @@ export const allUsers = (users) => {
 
 export const startGetUsers = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/list')
+        axios.get('http://localhost:3088/scout/list',{
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        })
             .then((res) => {
                 const users = res.data
                 // console.log('users data after login:',users)

@@ -1,5 +1,28 @@
 import axios from 'axios'
 
+export const addGroundPicture = (data) => {
+    return {
+        type: 'EDIT_GROUND_PICTURE',
+        payload: data
+    }
+}
+
+export const startGetGroundPicture = (id) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:3088/scout/grounds/${id}`, {
+            headers: {
+                'authorization': localStorage.getItem('token')
+            }
+        })
+            .then((res) => {
+                dispatch(addGroundPicture(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+}
+
 export const addEditGround = (data) => {
     return {
         type: 'EDIT_GROUND',
@@ -9,8 +32,8 @@ export const addEditGround = (data) => {
 
 export const startGetEditGroundDetials = (id) => {
     return (dispatch) => {
-        axios.get(`http://localhost:3088/scout/grounds/${id}`,{
-            headers:{
+        axios.get(`http://localhost:3088/scout/grounds/${id}`, {
+            headers: {
                 'authorization': localStorage.getItem('token')
             }
         })
@@ -32,24 +55,24 @@ export const addUsersGround = (data) => {
 
 export const startGetUsersGround = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/ground/user',{
-            headers:{
+        axios.get('http://localhost:3088/scout/ground/user', {
+            headers: {
                 'Authorization': localStorage.getItem('token')
             }
         })
-        .then((res) => {
-            console.log(' inside startgetusersground',res.data)
-            dispatch(addUsersGround(res.data))
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            .then((res) => {
+                console.log(' inside startgetusersground', res.data)
+                dispatch(addUsersGround(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 }
 
 export const addSelectedGround = (obj) => {
     return {
-        type:'ADD_DETAILS',
+        type: 'ADD_DETAILS',
         payload: obj
     }
 }
@@ -85,21 +108,21 @@ export const startGetGrounds = () => {
 
 export const setSpecificGround = (grounds) => {
     return {
-        type:'SET_SPECIFIC_GROUND',
+        type: 'SET_SPECIFIC_GROUND',
         payload: grounds
     }
 }
 
 export const startGetSpecificGrounds = (obj) => {
     return (dispatch) => {
-        axios.post('http://localhost:3088/scout/grounds/specific',obj,{
+        axios.post('http://localhost:3088/scout/grounds/specific', obj, {
             headers: {
                 'authorization': localStorage.getItem('token')
-                }
-            })
+            }
+        })
             .then((res) => {
                 const grounds = res.data
-                console.log('after making api request from  specifi',res)
+                console.log('after making api request from  specifi', res)
                 dispatch(setSpecificGround(grounds))
             })
             .catch((err) => {
