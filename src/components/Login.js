@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import validator from 'validator'
 import { useDispatch } from 'react-redux'
-import { startUserLogin } from '../actions/usersAction'
+import { startGetRole, startGetUsers, updateLoggedIn } from '../actions/usersAction'
+import axios from 'axios'
 import '../css/loginPage.css'
 import '../css/home.css'
+import '../css/overlap.css'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 const Login = (props) => {
     // const loggedIn = useSelector((state) => {
@@ -12,9 +15,39 @@ const Login = (props) => {
     // })
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const [update, setUpdate] = useState(false)
+    const [noUpdate, setNoUpdate] = useState(false)
     const [formErrors, setFormErrors] = useState({})
     const errors = {}
+
+    useEffect(() => {
+
+        if (update) {
+            const timeout = setTimeout(() => {
+                setUpdate(false)
+            }, 2000)
+
+            setTimeout(() => {
+                props.history.push('/')
+            }, 2000)
+
+            return () => clearTimeout(timeout)
+        }
+
+        if (noUpdate) {
+            const timeout = setTimeout(() => {
+                setNoUpdate(false)
+            }, 2000)
+
+            setTimeout(() => {
+                props.history.push('/login')
+            }, 2000)
+
+            return () => clearTimeout(timeout)
+        }
+
+    }, [update, noUpdate, props.history])
+
 
     const dispatch = useDispatch()
 
@@ -43,10 +76,30 @@ const Login = (props) => {
             }
             console.log('inside the login component', formData)
 
-            dispatch(startUserLogin(formData))
+            // dispatch(startUserLogin(formData))
+
+            axios.post(`http://localhost:3088/scout/login`, formData)
+                .then((res) => {
+                    const result = res.data
+                    if (result.hasOwnProperty('error')) {
+                        setNoUpdate(true)
+                        // alert(result.errors)
+                        props.history.push('/login')
+                    } else {
+                        setUpdate(true)
+                        localStorage.setItem('token', result.token)
+                        dispatch(updateLoggedIn(true))
+                        dispatch(startGetUsers())
+                        dispatch(startGetRole())
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+
 
             // console.log(' result of dispatch ',res)
-            props.history.push('/')
+            // props.history.push('/')
         } else {
             setFormErrors(errors)
         }
@@ -64,11 +117,41 @@ const Login = (props) => {
         }
     }
 
+    const handleSubmitClick = () => {
+        setUpdate(false)
+        setNoUpdate(false)
+    }
+
     return (
         <div className='bottom-margin'>
             <div className='centre-container responsive-box wrapper component'>
                 <div className='card-switch'>
                     <div className='title'> Log in</div>
+
+                    {update && (
+                        <div className="toast show position-fixed bottom-0 end-0 p-2 m-4 toast-available" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div className="toast-header">
+                                <strong className="me-auto">Successfully logged in</strong>
+                                <button type="button" className="btn-close" onClick={handleSubmitClick}></button>
+                            </div>
+                            <div className="toast-body">
+                                Please wait we are logging you in.
+                            </div>
+                        </div>
+                    )}
+
+                    { noUpdate && (
+                        <div className="toast show position-fixed bottom-0 end-0 p-2 m-4 toast-not-available" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div className="toast-header">
+                                <strong className="me-auto">Invalid email or password</strong>
+                                <button type="button" className="btn-close" onClick={handleSubmitClick}></button>
+                            </div>
+                            <div className="toast-body">
+                                Please try again.
+                            </div>
+                        </div>
+                    )}
+
                     <form className='flip-card__form' onSubmit={handleSubmit}>
                         <input className='flip-card__input' type="text"
                             value={email}
@@ -85,6 +168,8 @@ const Login = (props) => {
                         />
                         {formErrors.password && <span style={{ color: 'red' }}> {formErrors.password} </span>}
                         <input className='flip-card__btn' type='submit' value=' Login in' />
+
+                        <Link to='/register'> Don't have a account ?. Join us </Link>
                     </form>
                 </div>
             </div>
