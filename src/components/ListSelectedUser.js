@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
+import { BASE_URL } from "../services/helper"
 // import WhatsappLink from './WhatsappLink'
 
 const ListSelectedUser = (props) => {
@@ -23,7 +24,7 @@ const ListSelectedUser = (props) => {
                             <div className="col md-6">
                                 <div>
                                     <figure className="figure">
-                                        <img style={{borderRadius:'10px'}} width='500' height='500' src={`http://localhost:3088/images/${player.profilePicture}`} alt={`${player.username}`} />
+                                        <img style={{borderRadius:'10px'}} width='500' height='500' src={`${BASE_URL}/images/${player.profilePicture}`} alt={`${player.username}`} />
                                     </figure>
                                 </div>
                             </div>

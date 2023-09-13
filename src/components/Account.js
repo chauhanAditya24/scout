@@ -18,7 +18,7 @@ const Account = (props) => {
     })
 
     const handleClick = () => {
-        props.history.push('/')
+        props.history.push('/home')
     }
 
     return (

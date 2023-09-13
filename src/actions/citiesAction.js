@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { BASE_URL } from '../services/helper'
 
 export const selectedCity = (city) => {
     return {
@@ -16,7 +17,7 @@ export const addCities = (cities) => {
 
 export const getCities = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/cities/list')
+        axios.get(`${BASE_URL}/scout/cities/list`)
             .then((res) => {
                 dispatch(addCities(res.data))
             })

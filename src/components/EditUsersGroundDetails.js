@@ -7,6 +7,7 @@ import { addEditGround } from '../actions/groundsAction'
 import {startGetGroundPicture} from '../actions/groundsAction'
 import axios from 'axios'
 import '../css/overlap.css'
+import { BASE_URL } from '../services/helper'
 
 const EditUsersGroundDetails = (props) => {
 
@@ -20,7 +21,7 @@ const EditUsersGroundDetails = (props) => {
             }, 2000)
 
             setTimeout(() => {
-                props.history.push('/')
+                props.history.push('/home')
             },2000)
 
             return () => clearTimeout(timeout);
@@ -42,12 +43,12 @@ const EditUsersGroundDetails = (props) => {
 
     const handleClickBack = (e) => {
         // console.log('name in clickback' , e.target.name)
-        props.history.push('/')
+        props.history.push('/home')
     }
 
     const handleRemoveClick = (id) => {
         // console.log('handleRemove',id)
-        axios.delete(`http://localhost:3088/scout/grounds/remove/${id}`)
+        axios.delete(`${BASE_URL}/scout/grounds/remove/${id}`)
             .then((res) => {
                 console.log('removed data',res.data)
                 setIsDelete(true)
@@ -97,7 +98,7 @@ const EditUsersGroundDetails = (props) => {
                                             <h3 >{ground.name} </h3>
                                             <div className='row'>
                                                 <div className='col md-6'>
-                                                    <img style={{ borderRadius: '10px' }} width='600' height='300' alt={ground.name} src={`http://localhost:3088/images/${ground.groundPicture}`} />
+                                                    <img style={{ borderRadius: '10px' }} width='600' height='300' alt={ground.name} src={`${BASE_URL}/images/${ground.groundPicture}`} />
                                                 </div>
                                                 <div className='col md-6' style={{ borderRadius: '10px', backgroundColor: '#f0f0f0', border: '2px solid #ccc', padding: '50px', marginRight: '150px' }}>
                                                     <div>

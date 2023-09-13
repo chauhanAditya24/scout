@@ -4,6 +4,7 @@ import { getCurrentUser } from "../actions/usersAction"
 import axios from "axios"
 import '../css/profilePic.css'
 import '../css/overlap.css'
+import { BASE_URL } from "../services/helper"
 
 const UpdateProfilePicture = (props) => {
 
@@ -46,7 +47,7 @@ const UpdateProfilePicture = (props) => {
         formData.append('profilePicture', image)
         // console.log('formData', formData)
 
-        axios.put(`http://localhost:3088/scout/picture/update`, formData, {
+        axios.put(`${BASE_URL}/scout/picture/update`, formData, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }

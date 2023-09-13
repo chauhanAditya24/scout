@@ -6,6 +6,7 @@ import { startGetSports } from '../actions/sportsAction'
 import { getCities } from '../actions/citiesAction'
 import '../css/groundRegister.css'
 import '../css/overlap.css'
+import { BASE_URL } from '../services/helper'
 
 const RegisterGround = (props) => {
 
@@ -31,7 +32,7 @@ const RegisterGround = (props) => {
             }, 2000)
             
             setTimeout(() => {
-                props.history.push('/')
+                props.history.push('/home')
             },3000)
 
             return () => clearTimeout(timeout)
@@ -126,7 +127,7 @@ const RegisterGround = (props) => {
             // }
             console.log(formData)
 
-            axios.post('http://localhost:3088/scout/grounds/register', formData)
+            axios.post(`${BASE_URL}/scout/grounds/register`, formData)
                 .then((res) => {
                     console.log('registering the ground', res.data)
                     const result = res.data
@@ -278,7 +279,7 @@ const RegisterGround = (props) => {
 
                 <input type='submit' className='btn btn-success' value='Register ground' />
                 <button style={{ marginLeft: '10px' }} onClick={() => {
-                    props.history.push('/')
+                    props.history.push('/home')
                 }} className='btn btn-danger'> Cancel </button>
             </form>
         </div>

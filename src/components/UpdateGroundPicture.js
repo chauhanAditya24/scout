@@ -2,6 +2,7 @@ import axios from "axios"
 import React, { useState,useEffect } from "react"
 import { useSelector } from "react-redux"
 import '../css/overlap.css'
+import { BASE_URL } from "../services/helper"
 
 const UpdateGroundPicture = (props) => {
 
@@ -18,7 +19,7 @@ const UpdateGroundPicture = (props) => {
             }, 2000); // 3000 milliseconds = 3 seconds
 
             setTimeout(() => {
-                props.history.push('/')
+                props.history.push('/home')
             }, 2000)
 
             return () => clearTimeout(timeout);
@@ -42,7 +43,7 @@ const UpdateGroundPicture = (props) => {
         const formData = new FormData()
         formData.append('groundPicture',image)
 
-        axios.put(`http://localhost:3088/scout/groundPicture/update/${ground._id}`,formData,{
+        axios.put(`${BASE_URL}/scout/groundPicture/update/${ground._id}`,formData,{
             headers:{
                 'Authorization':localStorage.getItem('token')
             }
@@ -58,7 +59,7 @@ const UpdateGroundPicture = (props) => {
     }
 
     const handleClick = () => {
-        props.history.push('/')
+        props.history.push('/home')
     }
 
     return (

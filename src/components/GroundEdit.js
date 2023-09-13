@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { startGetSports } from '../actions/sportsAction'
 import { getCities } from '../actions/citiesAction'
 import '../css/overlap.css'
+import { BASE_URL } from "../services/helper"
 
 const GroundEdit = (props) => {
 
@@ -31,7 +32,7 @@ const GroundEdit = (props) => {
             }, 2000)
 
             setTimeout(() => {
-                    props.history.push('/')
+                    props.history.push('/home')
                 }, 2000)
 
             return () => clearTimeout(timeout)
@@ -102,7 +103,7 @@ const GroundEdit = (props) => {
             }
             console.log(formData)
 
-            axios.put(`http://localhost:3088/scout/grounds/update/${ground._id}`, formData)
+            axios.put(`${BASE_URL}/scout/grounds/update/${ground._id}`, formData)
                 .then((result) => {
                     if (result.data) {
                         // alert('data changed successfully')
@@ -143,7 +144,7 @@ const GroundEdit = (props) => {
     }
 
     const handleClick = (e) => {
-        props.history.push('/')
+        props.history.push('/home')
     }
 
     const handleSubmitClick = () => {

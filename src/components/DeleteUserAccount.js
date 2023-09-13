@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import { updateLoggedIn } from "../actions/usersAction"
 import { useDispatch, useSelector } from "react-redux"
 import '../css/overlap.css'
+import { BASE_URL } from "../services/helper"
 
 const DeleteUserAccount = (props) => {
 
@@ -18,7 +19,7 @@ const DeleteUserAccount = (props) => {
               
             setTimeout(() => {
                 dispatch(updateLoggedIn(false))
-                props.history.push('/login')
+                props.history.push('/')
             },2000)
 
             return () => clearTimeout(timeout)
@@ -36,7 +37,7 @@ const DeleteUserAccount = (props) => {
     }
 
     const handleDeleteManager = () => {
-        axios.delete(`http://localhost:3088/scout/acount/remove`, {
+        axios.delete(`${BASE_URL}/scout/acount/remove`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
@@ -54,7 +55,7 @@ const DeleteUserAccount = (props) => {
     }
 
     const handleDeletePlayer = () => {
-        axios.delete(`http://localhost:3088/scout/acount/remove`, {
+        axios.delete(`${BASE_URL}/scout/acount/remove`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
