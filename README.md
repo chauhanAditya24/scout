@@ -53,5 +53,8 @@ https://github.com/chauhanAditya24/scout/assets/138465775/320255ad-c563-4e55-a02
 - Connection
   - Users can connect with each other on a single click via whatsapp.
 
+### Backend 
+  - [scout-backend](https://github.com/chauhanAditya24/scout-backend)
+
 ### Contributors
   - [Aditya Chauhan](https://github.com/chauhanAditya24)
