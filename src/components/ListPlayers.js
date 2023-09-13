@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { startGetSpecificUsers, startGetSelectedPlayer } from '../actions/usersAction'
 import { Link } from 'react-router-dom'
@@ -14,12 +14,23 @@ const ListPlayers = (props) => {
         }
     })
 
+    //trying pagination
+    const [currentPage, setCurrentPage] = useState(1)
+    const recordsPerPage = 6
+    const lastIndex = currentPage * recordsPerPage
+    const firstIndex = lastIndex - recordsPerPage
+    //
+
     let playersOnly
     if (users) {
         playersOnly = users.filter((ele) => {
             return ele.role === 'player'
         })
     }
+
+    const records = playersOnly.slice(firstIndex, lastIndex)
+    const nPage = Math.ceil(playersOnly.length / recordsPerPage)
+    const numbers = [...Array(nPage + 1).keys()].slice(1)
 
     useEffect(() => {
 
@@ -47,6 +58,24 @@ const ListPlayers = (props) => {
     //     })
     // }
 
+    const handlePrev = () => {
+        if (currentPage !== 1) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
+    const handleNext = () => {
+        if (currentPage !== nPage) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
+    const changeCurrentPage = (value) => {
+        setCurrentPage(value)
+    }
+
+
+
     return (
         <div>
             {
@@ -56,9 +85,9 @@ const ListPlayers = (props) => {
                             <div className='col col-md-11'>
                                 <h1> Players in your city: </h1>
                             </div>
-                            <div style={{marginTop:'10px'}} className='col col-md-1'>
+                            <div style={{ marginTop: '10px' }} className='col col-md-1'>
                                 <button className='btn btn-primary' onClick={() => {
-                                    props.history.push('/')
+                                    props.history.push('/home')
                                 }}> back </button>
                             </div>
                         </div>
@@ -68,7 +97,7 @@ const ListPlayers = (props) => {
                         <div className='row'>
                             {
                                 users && (
-                                    playersOnly.map((user) => {
+                                    records.map((user) => {
                                         return (
                                             <div style={{ backgroundColor: '#f5f5f5', border: '1px solid grey', width: '430px', marginLeft: '10px' }} key={user._id} className='card col-md-4 mb-4'>
                                                 <img style={{ marginTop: '7px' }} width='200' height='350' className='card-img-top' src={`http://localhost:3088/images/${user.profilePicture}`} alt={`${user.username}`} />
@@ -88,8 +117,34 @@ const ListPlayers = (props) => {
                                 )
                             }
                         </div>
+                        {
+                            playersOnly.length > 6 && (
+                                <nav style={{ marginLeft: '500px' }}>
+                                    <ul className='pagination'>
+                                        <li className='page-item'>
+                                            <a href='#' className='page-link' onClick={handlePrev}> Prev </a>
+                                        </li>
+                                        {
+                                            numbers.map((num, i) => {
+                                                return (
+                                                    <li key={i} className={`page-item ${currentPage === num ? 'active' : ''}`}>
+                                                        <a className='page-link' href="#" onClick={() => {
+                                                            changeCurrentPage(num)
+                                                        }}>{num}</a>
+                                                    </li>
+                                                )
+                                            })
+                                        }
+                                        <li className='page-item'>
+                                            <a href='#' className='page-link' onClick={handleNext}> Next </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            )
+                        }
+
                         <button className='btn btn-primary' onClick={() => {
-                            props.history.push('/')
+                            props.history.push('/home')
                         }}> back </button>
                     </div>
                 ) : (
@@ -98,7 +153,7 @@ const ListPlayers = (props) => {
                         <br /> Redirecting you to the home page
                         {
                             setTimeout(() => {
-                                props.history.push('/')
+                                props.history.push('/home')
                             }, '3000')
                         }
                     </div>

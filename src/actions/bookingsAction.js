@@ -1,4 +1,5 @@
 import axios from "axios"
+import { BASE_URL } from "../services/helper"
 
 export const addBookings = (data) => {
     return {
@@ -9,7 +10,7 @@ export const addBookings = (data) => {
 
 export const startGetManagerBookings = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/bookings/manager', {
+        axios.get(`${BASE_URL}/scout/bookings/manager`, {
             headers:{
                 'Authorization': localStorage.getItem('token')
             }
@@ -26,7 +27,7 @@ export const startGetManagerBookings = () => {
 
 export const startGetBookings = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/bookings', {
+        axios.get(`${BASE_URL}/scout/bookings`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }

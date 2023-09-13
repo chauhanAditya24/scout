@@ -23,7 +23,7 @@ const Register = (props) => {
             }, 2000)
 
             setTimeout(() => {
-                props.history.push('/login')
+                props.history.push('/')
             }, 2000)
 
             return () => clearTimeout(timeout)
@@ -292,7 +292,7 @@ const Register = (props) => {
                         name='checkbox'
                         checked={check}
                         onChange={handleChange}
-                    /> <Link data-bs-toggle="modal" data-bs-target="#staticBackdrop"> I accept the terms and condition </Link>
+                    /> <a  href='#' data-bs-toggle="modal" data-bs-target="#staticBackdrop"> I accept the terms and condition </a>
                     {/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Launch static backdrop modal
                     </button> */}
@@ -308,7 +308,7 @@ const Register = (props) => {
 
 
             </div>
-            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog  modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">

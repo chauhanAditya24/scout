@@ -24,6 +24,7 @@ import UpdateGroundPicture from './UpdateGroundPicture'
 import '../css/navbar.css'
 import '../css/profilePicture.css'
 import DeleteUserAccount from './DeleteUserAccount'
+import ViewAllUsers from './ViewAllUsers'
 
 
 const NavBar = (props) => {
@@ -48,7 +49,7 @@ const NavBar = (props) => {
                     <ul className='navbar-list'>
                         {loggedIn === true ? (
                             <>
-                                <li style={{ paddingTop: '20px' }} className='navbar-links'><Link to='/'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
+                                <li style={{ paddingTop: '20px' }} className='navbar-links'><Link to='/home'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
                                     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
                                 </svg> Home </Link></li>
                                 <li style={{ paddingTop: '20px' }} className='navbar-links'><Link to='/account'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-person-badge" viewBox="0 0 16 16">
@@ -71,7 +72,7 @@ const NavBar = (props) => {
                                     <path d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z" />
                                     <path d="M4.085 1H3.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1h-.585c.055.156.085.325.085.5V2a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 4 2v-.5c0-.175.03-.344.085-.5ZM8.5 6.5V8H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V9H6a.5.5 0 0 1 0-1h1.5V6.5a.5.5 0 0 1 1 0Z" />
                                 </svg> Register </Link></li>
-                                <li style={{ paddingTop: '20px' }} className='navbar-links'><Link className='navbar-links' to='/login'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                <li style={{ paddingTop: '20px' }} className='navbar-links'><Link className='navbar-links' to='/'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                                     <path fillRule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
                                     <path fillRule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
                                 </svg> Login </Link></li>
@@ -84,9 +85,9 @@ const NavBar = (props) => {
                 </nav>
             </header>
 
-            <Route path='/' component={Home} exact={true} />
+            <Route path='/home' component={Home} exact={true} />
             <Route path='/register' component={Register} exact={true} />
-            <Route path='/login' component={Login} exact={true} />
+            <Route path='/' component={Login} exact={true} />
             <Route path='/players' component={ListingUsers} exact={true} />
             <Route path='/grounds/register' component={RegisterGround} exact={true} />
             <Route path='/grounds/all' component={ShowGrounds} exact={true} />
@@ -104,6 +105,7 @@ const NavBar = (props) => {
             <Route path='/update/profilePicture' component={UpdateProfilePicture} exact={true} />
             <Route path='/update/groundPicture' component={UpdateGroundPicture}  exact={true}/>
             <Route path='/delete/account' component={DeleteUserAccount} exact={true}/>
+            <Route path='/admin/view/details' component={ViewAllUsers} exact={true} />
         </div>
     )
 }

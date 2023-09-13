@@ -8,6 +8,7 @@ import '../css/loginPage.css'
 import '../css/home.css'
 import '../css/overlap.css'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { BASE_URL } from '../services/helper'
 
 const Login = (props) => {
     // const loggedIn = useSelector((state) => {
@@ -28,7 +29,7 @@ const Login = (props) => {
             }, 2000)
 
             setTimeout(() => {
-                props.history.push('/')
+                props.history.push('/home')
             }, 2000)
 
             return () => clearTimeout(timeout)
@@ -40,7 +41,7 @@ const Login = (props) => {
             }, 2000)
 
             setTimeout(() => {
-                props.history.push('/login')
+                props.history.push('/')
             }, 2000)
 
             return () => clearTimeout(timeout)
@@ -78,13 +79,13 @@ const Login = (props) => {
 
             // dispatch(startUserLogin(formData))
 
-            axios.post(`http://localhost:3088/scout/login`, formData)
+            axios.post(`${BASE_URL}/scout/login`, formData)
                 .then((res) => {
                     const result = res.data
                     if (result.hasOwnProperty('error')) {
                         setNoUpdate(true)
                         // alert(result.errors)
-                        props.history.push('/login')
+                        props.history.push('/')
                     } else {
                         setUpdate(true)
                         localStorage.setItem('token', result.token)

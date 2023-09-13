@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import '../css/overlap.css'
 import '../css/booking.css'
+import { BASE_URL } from '../services/helper'
 
 const BookingPage = (props) => {
 
@@ -135,7 +136,7 @@ const BookingPage = (props) => {
             managerId: ground.userId
         }
 
-        axios.post(`http://localhost:3088/scout/ground/book`, data, {
+        axios.post(`${BASE_URL}/scout/ground/book`, data, {
             headers: {
                 'authorization': localStorage.getItem('token')
             }
@@ -148,7 +149,7 @@ const BookingPage = (props) => {
                 } else {
                     setBookingAvailable(true)
                     const timeout = setTimeout(() => {
-                        props.history.push('/')
+                        props.history.push('/home')
                     }, 3000); // 3000 milliseconds = 3 seconds
 
                     return () => clearTimeout(timeout);
@@ -180,7 +181,7 @@ const BookingPage = (props) => {
 
             console.log('data check', data)
 
-            axios.post(`http://localhost:3088/scout/ground/availability`, data, {
+            axios.post(`${BASE_URL}/scout/ground/availability`, data, {
                 headers: {
                     'authorization': localStorage.getItem('token')
                 }
@@ -297,7 +298,7 @@ const BookingPage = (props) => {
             <div className='row'>
                 <div className='col-sm-6'>
                     <h1>{ground.name}</h1>
-                    <img style={{borderRadius:'10px'}} alt='...' width='800' height='500' src={`http://localhost:3088/images/${ground.groundPicture}`} />
+                    <img style={{borderRadius:'10px'}} alt='...' width='800' height='500' src={`${BASE_URL}/images/${ground.groundPicture}`} />
                 </div>
                 <div className='col-sm-6'>
                     <div className='container form-box' style={{ borderRadius:'10px',marginLeft: '250px', marginTop: '55px' }}>

@@ -1,11 +1,13 @@
 const initialState = {
+    usersAll : [],
     currentUser: {},
     loggedIn: false,
     allUsers: [],
     usersListCondition: [],
     selectedPlayer: {},
     role: '',
-    userid:''
+    userid:'',
+    viewDetials:{}
 }
 
 const usersReducer = ( state = initialState , action) => {
@@ -14,6 +16,14 @@ const usersReducer = ( state = initialState , action) => {
             return {...state}
         }
         
+        case 'VIEW_DETAILS':{
+            return {...state,viewDetials:action.payload}
+        }
+
+        case 'USERS_ALL': {
+            return {...state,usersAll:action.payload}
+        }
+
         case 'SET_ID': {
             return { ...state , userid:action.payload}
         }

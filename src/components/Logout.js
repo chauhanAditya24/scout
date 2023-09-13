@@ -10,13 +10,13 @@ const Logout = (props) => {
         // alert('successfully logged out')
         localStorage.removeItem('token')
         dispatch(updateLoggedIn(false))
-        props.history.push('/login')
+        props.history.push('/')
         // console.log('props : ', props.history)
     }
 
     const handleClickNo = (e) => {
         // alert('diverting you to home page')
-        props.history.push('/')
+        props.history.push('/home')
     }
 
     return (

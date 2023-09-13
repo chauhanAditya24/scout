@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { BASE_URL } from '../services/helper'
 
 export const addPlayer = (data) => {
     return {
@@ -7,9 +8,55 @@ export const addPlayer = (data) => {
     }
 }
 
+export const viewDetials = (data) => {
+    return {
+        type:'VIEW_DETAILS',
+        payload:data
+    }
+}
+
+export const startGetUsersAdmin = (id) => {
+    return (dispatch) => {
+        axios.get(`${BASE_URL}/admin/view/details/${id}`,{
+            headers:{
+                'Authorization':localStorage.getItem('token')
+            }
+        })
+            .then((res) => {
+                dispatch(viewDetials(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+}
+
+export const usersAllList = (data) => {
+    return {
+        type: 'USERS_ALL',
+        payload:data
+    }
+}
+
+export const startGetUsersAll = () => {
+    return (dispatch) => {
+        axios.get(`${BASE_URL}/scout/list`,{
+            headers:{
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+            .then((res) => {
+                dispatch(usersAllList(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+}
+
 export const startGetSelectedPlayer = (id) => {
     return (dispatch) => {
-        axios.get(`http://localhost:3088/scout/player/${id}`,{
+        axios.get(`${BASE_URL}/scout/player/${id}`,{
             headers:{
                 'authorization': localStorage.getItem('token')
             }
@@ -32,7 +79,7 @@ export const setSpecificUser = (data) => {
 
 export const startGetSpecificUsers = (obj) => {
     return (dispatch) => {
-        axios.post('http://localhost:3088/scout/users/specific', obj , {
+        axios.post(`${BASE_URL}/scout/users/specific`, obj , {
             headers: {
                 'authorization': localStorage.getItem('token')
             }
@@ -56,7 +103,7 @@ export const currentUser = (user) => {
 
 export const updateDetails = (formData) => {
     return (dispatch) => {
-        axios.put('http://localhost:3088/scout/user/update', formData, {
+        axios.put(`${BASE_URL}/scout/user/update`, formData, {
             headers:{
                 'authorization': localStorage.getItem('token')
             }
@@ -75,7 +122,7 @@ export const updateDetails = (formData) => {
 
 export const getCurrentUser = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/user/account',{
+        axios.get(`${BASE_URL}/scout/user/account`,{
             headers: {
                 'authorization': localStorage.getItem('token')
             }
@@ -115,7 +162,7 @@ export const setUserId = (id) => {
 
 export const startGetRole = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/user/login',{
+        axios.get(`${BASE_URL}/scout/user/login`,{
             headers:{
                 'authorization':localStorage.getItem('token')
             }
@@ -133,7 +180,7 @@ export const startGetRole = () => {
 
 export const startUserLogin = (formData) => {
     return (dispatch) => {
-        axios.post('http://localhost:3088/scout/login', formData)
+        axios.post(`${BASE_URL}/scout/login`, formData)
             .then((res) => {
                 const result = res.data
                 if(result.hasOwnProperty('error')){
@@ -154,7 +201,7 @@ export const startUserLogin = (formData) => {
 
 export const startPostUsers = (formData) => {
     return (dispatch) => {
-        axios.post('http://localhost:3088/scout/register',formData)
+        axios.post(`${BASE_URL}/scout/register`,formData)
             .then((res) => {
                 const user = res.data
                 console.log('api call to post the data:',user)
@@ -181,7 +228,7 @@ export const allUsers = (users) => {
 
 export const startGetUsers = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/list',{
+        axios.get(`${BASE_URL}/scout/list`,{
             headers: {
                 'Authorization': localStorage.getItem('token')
             }

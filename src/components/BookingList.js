@@ -3,7 +3,7 @@ import { startGetBookings, startGetManagerBookings } from '../actions/bookingsAc
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { getCurrentUser } from "../actions/usersAction"
-
+import { BASE_URL } from "../services/helper"
 const BookingList = (props) => {
     const dispatch = useDispatch()
 
@@ -27,7 +27,7 @@ const BookingList = (props) => {
     }, [dispatch,user.role])
 
     const handleCancel = (id) => {
-        axios.get(`http://localhost:3088/scout/bookings/cancel/${id}`, {
+        axios.get(`${BASE_URL}/scout/bookings/cancel/${id}`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
@@ -36,7 +36,7 @@ const BookingList = (props) => {
                 console.log('log to be removed ', res.data)
                 alert('successfully canceled your booking , redirecting you to the home page !')
                 // setTimeout(props.history.push('/'), 1000)
-                props.history.push('/')
+                props.history.push('/home')
             })
             .catch((err) => {
                 console.log(err)
@@ -92,7 +92,7 @@ const BookingList = (props) => {
                     Redircting you to the home page ... 
                     {
                             setTimeout(() => {
-                                props.history.push('/')
+                                props.history.push('/home')
                             } , '3000')
                         }
                 </div>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { BASE_URL } from '../services/helper'
 
 const TestComponent = (props) => {
     const [ image , setImage] = useState('') 
 
     useEffect(() => {
-        axios.get('http://localhost:3088/scout/image/64c7e757ac39be94259f562d')
+        axios.get(`${BASE_URL}/scout/image/64c7e757ac39be94259f562d`)
             .then((res) => {
                 console.log(res.data)
                 setImage(res.data.profilePicture)

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { BASE_URL } from '../services/helper'
 
 export const addGroundPicture = (data) => {
     return {
@@ -9,7 +10,7 @@ export const addGroundPicture = (data) => {
 
 export const startGetGroundPicture = (id) => {
     return (dispatch) => {
-        axios.get(`http://localhost:3088/scout/grounds/${id}`, {
+        axios.get(`${BASE_URL}/scout/grounds/${id}`, {
             headers: {
                 'authorization': localStorage.getItem('token')
             }
@@ -32,7 +33,7 @@ export const addEditGround = (data) => {
 
 export const startGetEditGroundDetials = (id) => {
     return (dispatch) => {
-        axios.get(`http://localhost:3088/scout/grounds/${id}`, {
+        axios.get(`${BASE_URL}/scout/grounds/${id}`, {
             headers: {
                 'authorization': localStorage.getItem('token')
             }
@@ -55,7 +56,7 @@ export const addUsersGround = (data) => {
 
 export const startGetUsersGround = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/ground/user', {
+        axios.get(`${BASE_URL}/scout/ground/user`, {
             headers: {
                 'Authorization': localStorage.getItem('token')
             }
@@ -94,7 +95,7 @@ const setGrounds = (grounds) => {
 
 export const startGetGrounds = () => {
     return (dispatch) => {
-        axios.get('http://localhost:3088/scout/grounds/all')
+        axios.get(`${BASE_URL}/scout/grounds/all`)
             .then((res) => {
                 const grounds = res.data
                 console.log(grounds)
@@ -115,7 +116,7 @@ export const setSpecificGround = (grounds) => {
 
 export const startGetSpecificGrounds = (obj) => {
     return (dispatch) => {
-        axios.post('http://localhost:3088/scout/grounds/specific', obj, {
+        axios.post(`${BASE_URL}/scout/grounds/specific`, obj, {
             headers: {
                 'authorization': localStorage.getItem('token')
             }
