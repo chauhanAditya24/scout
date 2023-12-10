@@ -1,0 +1,18 @@
+/* reactCalendar.css */
+
+/* Adjust the height of the day cells to accommodate the longer text */
+/* .fc .fc-day {
+    height: 30px;
+    width: 30px; 
+  } */
+  
+  /* Ensure that the event content is visible within the day cells */
+  .fc .fc-event-title {
+    white-space: normal;
+  }
+  
+  /* .custom-full-calendar-container {
+    height: 10px;
+    width: 1000px;
+    margin-bottom: 20px;
+  } */
