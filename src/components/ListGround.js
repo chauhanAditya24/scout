@@ -24,12 +24,14 @@ const ListGround = (props) => {
     }, [dispatch, city, sport])
 
     //pagination
+    const [groundSearch , setGroundSearch] = useState([...grounds])
     const [currentPage, setCurrentPage] = useState(1)
     const recordsPerPage = 6
     const lastIndex = currentPage * recordsPerPage
     const firstIndex = lastIndex - recordsPerPage
-    const records = grounds.slice(firstIndex, lastIndex)
-    const nPage = Math.ceil(grounds.length / recordsPerPage)
+    // const records = grounds.slice(firstIndex, lastIndex)
+    const records = groundSearch.slice(firstIndex, lastIndex)
+    const nPage = Math.ceil(groundSearch.length / recordsPerPage)
     const numbers = [...Array(nPage + 1).keys()].slice(1)
 
 
@@ -58,12 +60,37 @@ const ListGround = (props) => {
         setCurrentPage(value)
     }
 
+    const handleChange = (e) => {
+        if(e.target.value.length > 1){
+            const searchChar = e.target.value.toLowerCase()
+            console.log('ground for new test' , grounds)
+            const res = grounds.filter((ele) => {
+                return ele.name.toLowerCase().includes(searchChar)
+            })
+            // console.log('search char wise in array ' , res)
+            setGroundSearch(res)
+        }else{
+            setGroundSearch(grounds)
+        }
+    }
+
     return (
         <div className='container'>
             {
                 grounds.length > 0 ? (
                     <div className='container'>
-                        <h1>Grounds in your city : </h1>
+                        <div className='row'>
+                            <div className='col-md-4'>
+                                <h1>Grounds in your city : </h1>
+                            </div>
+                            <div className='col-md-8'>
+                                <input type='search' 
+                                    onChange={handleChange}
+                                    placeholder='  search by name' 
+                                    style={{marginTop:'10px',borderRadius:'25px',marginRight:'10px',width:'250px'}}
+                                />
+                            </div>
+                        </div>
                         <div className='row'>
                             {grounds && (
                                 records.map((ground) => {
