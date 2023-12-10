@@ -10,26 +10,29 @@ const ListPlayers = (props) => {
         return {
             city: state.cities.city,
             sport: state.sports.sport,
-            users: state.users.usersListCondition
+            users: state.users.usersListCondition.filter((ele) => {
+                return ele.role === 'player'
+            })
         }
     })
 
     //trying pagination
+    const [playersSearch , setPlayersSearch] = useState([...users])
     const [currentPage, setCurrentPage] = useState(1)
     const recordsPerPage = 6
     const lastIndex = currentPage * recordsPerPage
     const firstIndex = lastIndex - recordsPerPage
     //
 
-    let playersOnly
-    if (users) {
-        playersOnly = users.filter((ele) => {
-            return ele.role === 'player'
-        })
-    }
+    // let playersOnly
+    // if (users) {
+    //     playersOnly = users.filter((ele) => {
+    //         return ele.role === 'player'
+    //     })
+    // }
 
-    const records = playersOnly.slice(firstIndex, lastIndex)
-    const nPage = Math.ceil(playersOnly.length / recordsPerPage)
+    const records = playersSearch.slice(firstIndex, lastIndex)
+    const nPage = Math.ceil(playersSearch.length / recordsPerPage)
     const numbers = [...Array(nPage + 1).keys()].slice(1)
 
     useEffect(() => {
@@ -74,7 +77,19 @@ const ListPlayers = (props) => {
         setCurrentPage(value)
     }
 
-
+    const handleChange = (e) =>{
+        if(e.target.value.length > 1){
+            const searchChar = e.target.value.toLowerCase()
+            console.log('users for new test' , users)
+            const res = users.filter((ele) => {
+                return ele.username.toLowerCase().includes(searchChar)
+            })
+            console.log('search char wise in array ' , res)
+            setPlayersSearch(res)
+        }else{
+            setPlayersSearch(users)
+        }
+    }
 
     return (
         <div>
@@ -82,8 +97,16 @@ const ListPlayers = (props) => {
                 users.length > 0 ? (
                     <div className='container'>
                         <div className='row'>
-                            <div className='col col-md-11'>
+                            <div className='col col-md-4'>
                                 <h1> Players in your city: </h1>
+                            </div>
+                            <div className='col col-md-7'>
+                                <input 
+                                    type='search'
+                                    onChange={handleChange}
+                                    placeholder='  search by name'
+                                    style={{marginTop:'10px',borderRadius:'25px',marginRight:'10px',width:'250px'}}
+                                />
                             </div>
                             <div style={{ marginTop: '10px' }} className='col col-md-1'>
                                 <button className='btn btn-primary' onClick={() => {
@@ -118,7 +141,7 @@ const ListPlayers = (props) => {
                             }
                         </div>
                         {
-                            playersOnly.length > 6 && (
+                            users.length > 6 && (
                                 <nav style={{ marginLeft: '500px' }}>
                                     <ul className='pagination'>
                                         <li className='page-item'>
