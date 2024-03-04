@@ -25,6 +25,12 @@ import '../css/navbar.css'
 import '../css/profilePicture.css'
 import DeleteUserAccount from './DeleteUserAccount'
 import ViewAllUsers from './ViewAllUsers'
+import PaymentSuccess from './PaymentSuccess'
+import PaymentCancel from './PaymentCancel'
+import Chat from './Chat'
+import Group from './Group'
+import ChatPage from './ChatPage'
+import ShowFollowers from './ShowFollowers'
 
 
 const NavBar = (props) => {
@@ -103,9 +109,14 @@ const NavBar = (props) => {
             <Route path='/edit/ground/details' component={GroundEdit} exact={true} />
             <Route path='/booking/list' component={BookingList} exact={true} />
             <Route path='/update/profilePicture' component={UpdateProfilePicture} exact={true} />
-            <Route path='/update/groundPicture' component={UpdateGroundPicture}  exact={true}/>
-            <Route path='/delete/account' component={DeleteUserAccount} exact={true}/>
+            <Route path='/update/groundPicture' component={UpdateGroundPicture} exact={true} />
+            <Route path='/delete/account' component={DeleteUserAccount} exact={true} />
             <Route path='/admin/view/details' component={ViewAllUsers} exact={true} />
+            <Route path='/payment/success' component={PaymentSuccess} exact={true} />
+            <Route path='/payment/cancel' component={PaymentCancel} exact={true} />
+            <Route path='/message' component={ChatPage} exact={true}/>
+            <Route path='/group' component={Group}  exact={true}/>
+            <Route path='/followers' component={ShowFollowers} exact={true}/>
         </div>
     )
 }

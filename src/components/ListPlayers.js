@@ -1,23 +1,56 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { startGetSpecificUsers, startGetSelectedPlayer } from '../actions/usersAction'
+import { startGetSpecificUsers, startGetSelectedPlayer, addFollowing } from '../actions/usersAction'
 import { Link } from 'react-router-dom'
+import { updateFollowers } from '../actions/usersAction'
+import FollowersData from './FollowersData'
+import axios from 'axios'
+import { BASE_URL } from '../services/helper'
+import { useToast } from '@chakra-ui/react'
 
 const ListPlayers = (props) => {
     const dispatch = useDispatch()
+    const toast = useToast()
 
-    const { city, sport, users } = useSelector((state) => {
+    const { city, usersFollower, sport, allUsers } = useSelector((state) => {
         return {
             city: state.cities.city,
+            usersFollower: state.users.usersFollowers,
             sport: state.sports.sport,
-            users: state.users.usersListCondition.filter((ele) => {
+            allUsers: state.users.allUsers.filter((ele) => {
                 return ele.role === 'player'
             })
+            // users: state.users.usersListCondition.filter((ele) => {
+            //     return ele.role === 'player'
+            // })
         }
     })
 
+    const users = allUsers.filter((ele) => {
+        return ele.sport === sport && ele.city === city
+    })
+
+    // console.log('followers  users check ', usersFollower)
+
+    //for followers
+
+    // const [followers, setFollowers] = useState(Array.isArray(usersFollower) ? [...usersFollower] : []);
+
+    // const [followers, setFollowers] = useState([usersFollower])
+
+    // useEffect(() => {
+
+    // }, [followers])
+
+
+    const [check, setCheck] = useState(false)
+    const [check2, setCheck2] = useState(false)
+    const [enable1, setEnable1] = useState(true)
+    const [enable2, setEnable2] = useState(true)
+    // const [checkRev , setCheckRev]
+
     //trying pagination
-    const [playersSearch , setPlayersSearch] = useState([...users])
+    const [playersSearch, setPlayersSearch] = useState([...users])
     const [currentPage, setCurrentPage] = useState(1)
     const recordsPerPage = 6
     const lastIndex = currentPage * recordsPerPage
@@ -35,14 +68,16 @@ const ListPlayers = (props) => {
     const nPage = Math.ceil(playersSearch.length / recordsPerPage)
     const numbers = [...Array(nPage + 1).keys()].slice(1)
 
-    useEffect(() => {
 
-        dispatch(startGetSpecificUsers({
-            city,
-            sport
-        }))
 
-    }, [dispatch, city, sport])
+    // useEffect(() => {
+
+    //     dispatch(startGetSpecificUsers({
+    //         city,
+    //         sport
+    //     }))
+
+    // }, [dispatch, city, sport])
 
     console.log(' inside the grounds specific component ,', city, sport, users)
 
@@ -77,18 +112,132 @@ const ListPlayers = (props) => {
         setCurrentPage(value)
     }
 
-    const handleChange = (e) =>{
-        if(e.target.value.length > 1){
+    const handleChange = (e) => {
+        if (e.target.value.length > 1) {
             const searchChar = e.target.value.toLowerCase()
-            console.log('users for new test' , users)
+            console.log('users for new test', users)
             const res = users.filter((ele) => {
                 return ele.username.toLowerCase().includes(searchChar)
             })
-            console.log('search char wise in array ' , res)
+            console.log('search char wise in array ', res)
             setPlayersSearch(res)
-        }else{
+        } else {
             setPlayersSearch(users)
         }
+    }
+
+    const handleCheckBox2 = (e) => {
+        setCheck2(e.target.checked)
+        setEnable1(!e.target.checked)
+
+        if (e.target.checked) {
+            const sortedUsers = [...playersSearch].sort((a, b) => {
+                return b.username.localeCompare(a.username)
+            })
+            setPlayersSearch(sortedUsers)
+        } else {
+            setPlayersSearch(users)
+        }
+    }
+
+    const handleCheckBox = (e) => {
+        console.log(e.target.checked)
+        setCheck(e.target.checked)
+        setEnable2(!e.target.checked)
+        if (e.target.checked) {
+            const sortedUsers = [...playersSearch].sort((a, b) => {
+                return a.username.localeCompare(b.username)
+            })
+            setPlayersSearch(sortedUsers)
+        } else {
+            setPlayersSearch(users)
+        }
+    }
+
+    const handleFollow = (idAdd, username) => {
+        const data = { id: idAdd }
+        console.log('handling onClick for follow : ', data)
+        const dataForFollowing = { id: idAdd , username: username}
+
+        axios.put(`${BASE_URL}/scout/add/following`,dataForFollowing, {
+            headers:{
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+            .then((res) => {
+                console.log('success' , res.data)
+                dispatch(addFollowing(res.data))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+        axios.put(`${BASE_URL}/scout/user/followers`, data, {
+            headers: {
+                'Authorization': localStorage.getItem('token')
+            }
+        })
+            .then((res) => {
+                console.log('<--------------------------->', res.data)
+
+                if (res.data.message === 'Already following') {
+                    toast({
+                        title: 'Already following.',
+                        status: 'warning',
+                        duration: 5000,
+                        position: 'top',
+                        isClosable: true
+                    })
+                } else if (res.data.message === undefined) {
+                    toast({
+                        title: 'failed following.',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    })
+                } else {
+                    toast({
+                        title: 'successfully following',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top'
+                    })
+                }
+            })
+            .catch((err) => {
+                toast({
+                    title: 'failed to follow.',
+                    description: err.response.data,
+                    status: 'error',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top'
+                })
+            })
+
+
+        // if(usersFollower.includes())
+
+        // alert('id of user', user)
+        // console.log('user check inside all the list players', users)
+
+        // const follower = [...followers]
+        // follower.push(user.username)
+        // console.log()
+        // setFollowers(follower)
+
+        // dispatch(updateFollowers({ id: idAdd }))
+        // if (followers.length === 0) {
+        //     setFollowers([])
+        // } else {
+        //     const follower = [...followers]
+        //     follower.push(user.username)
+
+        //     setFollowers(follower)
+        // }
+
     }
 
     return (
@@ -100,13 +249,34 @@ const ListPlayers = (props) => {
                             <div className='col col-md-4'>
                                 <h1> Players in your city: </h1>
                             </div>
-                            <div className='col col-md-7'>
-                                <input 
+                            <div className='col col-md-3'>
+                                <input
                                     type='search'
                                     onChange={handleChange}
                                     placeholder='  search by name'
-                                    style={{marginTop:'10px',borderRadius:'25px',marginRight:'10px',width:'250px'}}
+                                    style={{ marginTop: '10px', borderRadius: '25px', border: '0.5px solid grey', marginRight: '10px', width: '250px' }}
                                 />
+                            </div>
+                            <div className='col col-md-2'>
+                                <FollowersData />
+                            </div>
+                            <div className='col col-md-2'>
+                                <input
+                                    type='checkbox'
+                                    checked={check}
+                                    disabled={!enable1}
+                                    onChange={handleCheckBox}
+                                    style={{ marginTop: '20px' }}
+                                />
+                                <label style={{ marginRight: '2px' }}> A - Z</label>
+                                <input
+                                    type='checkbox'
+                                    checked={check2}
+                                    onChange={handleCheckBox2}
+                                    disabled={!enable2}
+                                    style={{ marginTop: '20px' }}
+                                />
+                                <label> Z - A</label>
                             </div>
                             <div style={{ marginTop: '10px' }} className='col col-md-1'>
                                 <button className='btn btn-primary' onClick={() => {
@@ -132,7 +302,9 @@ const ListPlayers = (props) => {
                                                     <Link to='/list/selected/player' onClick={() => {
                                                         handleClick(user._id)
                                                     }}><button className='btn btn-info'>view detials</button></Link>
-
+                                                    <button onClick={() => {
+                                                        handleFollow(user._id, user.username)
+                                                    }} style={{ marginLeft: '190px', backgroundColor: '#4FE76B', borderRadius: '8px', paddingLeft: '10px', paddingRight: '10px', paddingTop: '3px', paddingBottom: '5px', height: '35px' }} classname='btn btn-info' > follow </button>
                                                 </div>
                                             </div>
                                         )
@@ -182,7 +354,6 @@ const ListPlayers = (props) => {
                     </div>
                 )
             }
-
         </div>
     )
 }

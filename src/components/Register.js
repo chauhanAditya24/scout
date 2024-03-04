@@ -100,6 +100,10 @@ const Register = (props) => {
         if (sport === '') {
             errors.sport = 'sport must be slected'
         }
+
+        if(image === ''){
+            errors.image = 'must upload a picture'
+        }
     }
 
     const handleFormSubmit = (e) => {
@@ -159,7 +163,7 @@ const Register = (props) => {
             setCity(e.target.value)
         } else if (e.target.name === 'sports') {
             setSport(e.target.value)
-        } else if (e.target.name === 'image') {
+        } else if (e.target.name === 'profilePicture') {
             setImage(e.target.files[0])
         } else if (e.target.name === 'bio') {
             setBio(e.target.value)
@@ -283,7 +287,8 @@ const Register = (props) => {
                         </div>
                     </div>
 
-                    <input type='file' name='image' onChange={handleChange} />
+                    <input type='file' name='profilePicture' onChange={handleChange} />
+                    {formErrors.image && <span style={{ color: 'red' }}> {formErrors.image} </span>}
                     <br />
                     <br />
                     <textarea name='bio' placeholder=' Eg : write something about the position you play' value={bio} onChange={handleChange} rows='4' cols='50'></textarea>

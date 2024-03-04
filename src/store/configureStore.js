@@ -5,6 +5,8 @@ import groundsReducer from '../reducers/groundsReducer'
 import citiesReducer from '../reducers/citiesReducer'
 import sportsReducer from '../reducers/sportsReducer'
 import bookingsReducer from '../reducers/bookingsReducer'
+import chatReducer from '../reducers/chatReducer'
+import notificationReducer from '../reducers/notificationReducer'
 
 const configureStore = () => {
     const store = createStore( combineReducers({
@@ -12,7 +14,9 @@ const configureStore = () => {
         grounds: groundsReducer,
         cities:  citiesReducer,
         sports: sportsReducer,
-        bookings: bookingsReducer
+        bookings: bookingsReducer,
+        chats: chatReducer,
+        notification: notificationReducer
     }) , applyMiddleware(thunk))
 
     return store
