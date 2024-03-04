@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { updateLoggedIn } from '../actions/usersAction'
+import { defaultFollowers, updateLoggedIn } from '../actions/usersAction'
 import '../css/logout.css'
 
 const Logout = (props) => {
@@ -10,6 +10,7 @@ const Logout = (props) => {
         // alert('successfully logged out')
         localStorage.removeItem('token')
         dispatch(updateLoggedIn(false))
+        // dispatch(defaultFollowers([]))
         props.history.push('/')
         // console.log('props : ', props.history)
     }

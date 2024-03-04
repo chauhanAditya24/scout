@@ -8,10 +8,18 @@ export const addBookings = (data) => {
     }
 }
 
+export const tempBookingData = (data) => {
+    console.log('temp booking data', data)
+    return {
+        type: 'BOOKING_DATA',
+        payload: data
+    }
+}
+
 export const startGetManagerBookings = () => {
     return (dispatch) => {
         axios.get(`${BASE_URL}/scout/bookings/manager`, {
-            headers:{
+            headers: {
                 'Authorization': localStorage.getItem('token')
             }
         })
@@ -19,7 +27,7 @@ export const startGetManagerBookings = () => {
                 console.log(res.data)
                 dispatch(addBookings(res.data))
             })
-            .catch((err) =>{
+            .catch((err) => {
                 console.log(err)
             })
     }

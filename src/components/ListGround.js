@@ -8,23 +8,35 @@ const ListGround = (props) => {
 
     const dispatch = useDispatch()
 
-    const { city, sport, grounds } = useSelector((state) => {
+    const { city, sport, groundsList,booking } = useSelector((state) => {
         return {
             city: state.cities.city,
             sport: state.sports.sport,
-            grounds: state.grounds.groundsListCondition
+            groundsList: state.grounds.groundsList,
+            booking: state.bookings.tempData   
         }
     })
 
-    useEffect(() => {
-        dispatch(startGetSpecificGrounds({
-            city,
-            sport
-        }))
-    }, [dispatch, city, sport])
+    const grounds = groundsList.filter((ele) => {
+        return ele.city === city && ele.sport === sport
+    })
+
+    // console.log('-------------------temp data -------------------',booking)
+
+    // useEffect(() => {
+    //     dispatch(startGetSpecificGrounds({
+    //         city,
+    //         sport
+    //     }))
+    // }, [dispatch, city, sport])
+
+    const [check , setCheck] = useState(false)
+    const [check2 , setCheck2] = useState(false)
+    const [enable1,setEnable1] = useState(true)
+    const [enable2 , setEnable2] = useState(true)
 
     //pagination
-    const [groundSearch , setGroundSearch] = useState([...grounds])
+    const [groundSearch, setGroundSearch] = useState([...grounds])
     const [currentPage, setCurrentPage] = useState(1)
     const recordsPerPage = 6
     const lastIndex = currentPage * recordsPerPage
@@ -61,14 +73,42 @@ const ListGround = (props) => {
     }
 
     const handleChange = (e) => {
-        if(e.target.value.length > 1){
+        if (e.target.value.length > 1) {
             const searchChar = e.target.value.toLowerCase()
-            console.log('ground for new test' , grounds)
+            console.log('ground for new test', grounds)
             const res = grounds.filter((ele) => {
                 return ele.name.toLowerCase().includes(searchChar)
             })
             // console.log('search char wise in array ' , res)
             setGroundSearch(res)
+        } else {
+            setGroundSearch(grounds)
+        }
+    }
+
+    const handleCheckBox2 = (e) => {
+        setCheck2(e.target.checked)
+        setEnable1(!e.target.checked)
+
+        if(e.target.checked){
+            const sortedGrounds = [...groundSearch].sort((a,b) => {
+                return b.name.localeCompare(a.name)
+            })
+            setGroundSearch(sortedGrounds)
+        }else{
+            setGroundSearch(grounds)
+        }
+
+    }
+
+    const handleCheckBox = (e) => {
+        setCheck(e.target.checked)
+        setEnable2(!e.target.checked)
+        if(e.target.checked){
+            const sortedGrounds = [...groundSearch].sort((a,b) => {
+                return a.name.localeCompare(b.name)
+            })
+            setGroundSearch(sortedGrounds)
         }else{
             setGroundSearch(grounds)
         }
@@ -80,15 +120,38 @@ const ListGround = (props) => {
                 grounds.length > 0 ? (
                     <div className='container'>
                         <div className='row'>
-                            <div className='col-md-4'>
+                            <div className='col col-md-4'>
                                 <h1>Grounds in your city : </h1>
                             </div>
-                            <div className='col-md-8'>
-                                <input type='search' 
+                            <div className='col col-md-5'>
+                                <input type='search'
                                     onChange={handleChange}
-                                    placeholder='  search by name' 
-                                    style={{marginTop:'10px',borderRadius:'25px',marginRight:'10px',width:'250px'}}
+                                    placeholder='  search by name'
+                                    style={{ marginTop: '10px', borderRadius: '25px', border:'0.5px solid grey', marginRight: '10px', width: '250px' }}
                                 />
+                            </div>
+                            <div className='col col-md-2'>
+                                <input 
+                                    type='checkbox'
+                                    checked={check}
+                                    disabled={!enable1}
+                                    onChange={handleCheckBox}
+                                    style={{marginTop:'10px'}}
+                                />
+                                <label> A - Z</label>
+                                <input 
+                                    type='checkbox'
+                                    checked={check2}
+                                    disabled={!enable2}
+                                    onChange={handleCheckBox2}
+                                    style={{marginTop:'10px'}}
+                                />
+                                <label> Z - A</label>
+                            </div>
+                            <div className='col col-md-1'>
+                                <button style={{marginTop:'10px'}} className='btn btn-primary' onClick={() => {
+                                    props.history.push('/home')
+                                }}> back </button>
                             </div>
                         </div>
                         <div className='row'>

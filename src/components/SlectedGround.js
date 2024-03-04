@@ -9,7 +9,7 @@ const SelectedGround = (props) => {
         return state.grounds.selectedGround
     })
 
-    console.log(ground)
+    console.log('i was here')
 
     return (
         <div>

@@ -1,7 +1,7 @@
 import React , {useEffect}from 'react'
 import NavBar from './components/NavBar'
 import { useDispatch } from 'react-redux'
-import {updateLoggedIn} from './actions/usersAction'
+import {startGetUsers, updateLoggedIn} from './actions/usersAction'
 import { getCities} from './actions/citiesAction'
 import { startGetSports } from './actions/sportsAction'
 import './css/home.css'
@@ -17,7 +17,7 @@ const App = (props) => {
 
     dispatch(getCities())
     dispatch(startGetSports())
-
+    dispatch(startGetUsers())
   },[dispatch])
   
 
