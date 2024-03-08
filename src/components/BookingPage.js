@@ -404,7 +404,7 @@ const BookingPage = (props) => {
                 <div className='row'>
                     <div className='col-sm-6'>
                         <h1 style={{ fontFamily: 'cursive' }}>{ground.name}</h1>
-                        <img style={{ borderRadius: '10px' }} alt='...' width='800' height='500' src={`${BASE_URL}/images/${ground.groundPicture}`} />
+                        <img style={{ borderRadius: '10px' }} alt='...' width='800' height='500' src={ground.groundPicture} />
                         <br />
                         <div style={{ paddingBottom: '10px', paddingLeft: '30px', fontFamily: 'cursive', paddingTop: '10px', border: '2px solid #ccc', backgroundColor: '#f0f0f0', width: '500px', width: '650px', borderRadius: '10px' }}>
                             <h3>Timings :- {ground.timings}.</h3>
@@ -466,3 +466,5 @@ const BookingPage = (props) => {
 }
 
 export default BookingPage
+
+{/* <img style={{ borderRadius: '10px' }} alt='...' width='800' height='500' src={`${BASE_URL}/images/${ground.groundPicture}`} /> */}

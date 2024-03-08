@@ -24,7 +24,7 @@ const ListSelectedUser = (props) => {
                             <div className="col md-6">
                                 <div>
                                     <figure className="figure">
-                                        <img style={{borderRadius:'10px'}} width='500' height='500' src={`${BASE_URL}/images/${player.profilePicture}`} alt={`${player.username}`} />
+                                        <img style={{borderRadius:'10px'}} width='500' height='500' src={player.profilePicture} alt={`${player.username}`} />
                                     </figure>
                                 </div>
                             </div>
@@ -57,3 +57,6 @@ const ListSelectedUser = (props) => {
 }
 
 export default ListSelectedUser
+
+
+{/* <img style={{borderRadius:'10px'}} width='500' height='500' src={`${BASE_URL}/images/${player.profilePicture}`} alt={`${player.username}`} /> */}

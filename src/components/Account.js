@@ -34,7 +34,7 @@ const Account = (props) => {
             </div>
             <div className='row'>
                 <div className='col md-6'>
-                    <img style={{borderRadius:'10px'}} width='500' height='500' src={`http://localhost:3088/images/${user.profilePicture}`} alt={user.username} />
+                    <img style={{borderRadius:'10px'}} width='500' height='500' src={user.profilePicture} alt={user.username} />
                 </div>
                 <div className='col -md-6' style={{borderRadius:'10px', backgroundColor: '#f0f0f0', border: '2px solid #ccc', padding: '50px', marginRight: '150px' }}>
                     <h2> Username - {user.username}</h2>
@@ -56,3 +56,6 @@ const Account = (props) => {
 }
 
 export default Account
+
+
+//                     <img style={{borderRadius:'10px'}} width='500' height='500' src={`http://localhost:3088/images/${user.profilePicture}`} alt={user.username} />

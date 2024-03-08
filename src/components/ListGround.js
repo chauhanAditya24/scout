@@ -159,7 +159,7 @@ const ListGround = (props) => {
                                 records.map((ground) => {
                                     return (
                                         <div key={ground._id} className='card col-md-4 mb-4' style={{ backgroundColor: '#f5f5f5', border: '1px solid grey', width: '400px', marginLeft: '10px' }}>
-                                            <img style={{ width: '380px', marginTop: '5px', height: '200px' }} className='card-img-top' src={`${BASE_URL}/images/${ground.groundPicture}`} alt={`${ground.name}`} />
+                                            <img style={{ width: '380px', marginTop: '5px', height: '200px' }} className='card-img-top' src={ground.groundPicture} alt={`${ground.name}`} />
                                             <div className='card-body'>
                                                 <h5 className='card-title'> {ground.name} </h5>
                                                 <p className='card-text'> Location : {ground.location} <br />

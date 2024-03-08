@@ -28,7 +28,7 @@ const UserListItem = (props) => {
                 size='sm'
                 cursor='pointer'
                 name={user.username}
-                src={`http://localhost:3088/images/${user.profilePicture}`}
+                src={user.profilePicture}
             />
             <Box>
                 <Text>{user.username}</Text>
