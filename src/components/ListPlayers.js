@@ -293,7 +293,7 @@ const ListPlayers = (props) => {
                                     records.map((user) => {
                                         return (
                                             <div style={{ backgroundColor: '#f5f5f5', border: '1px solid grey', width: '430px', marginLeft: '10px' }} key={user._id} className='card col-md-4 mb-4'>
-                                                <img style={{ marginTop: '7px' }} width='200' height='350' className='card-img-top' src={`http://localhost:3088/images/${user.profilePicture}`} alt={`${user.username}`} />
+                                                <img style={{ marginTop: '7px' }} width='200' height='350' className='card-img-top' src={user.profilePicture} alt={`${user.username}`} />
                                                 <div className='card-body'>
                                                     <h5 className='card-title'>{user.username}</h5>
                                                     <p className='card-text'>
@@ -360,6 +360,9 @@ const ListPlayers = (props) => {
 
 export default ListPlayers
 
+
+// to check again
+{/* <img style={{ marginTop: '7px' }} width='200' height='350' className='card-img-top' src={`http://localhost:3088/images/${user.profilePicture}`} alt={`${user.username}`} /> */}
 
 
 
