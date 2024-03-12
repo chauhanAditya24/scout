@@ -81,7 +81,7 @@ const UpdateGroundPicture = (props) => {
                         </div>
                     </div>
                 </div>
-                <input type="submit" style={{ marginRight: '10px' }} value='update picture' className="btn btn-success" />
+                <input type="submit" style={{ marginRight: '10px' }} value={'update picture'} className="btn btn-success" />
                 <button onClick={handleClick} className='btn btn-danger'> Cancel </button>
             </form>
         </div>
