@@ -98,7 +98,7 @@ const EditUsersGroundDetails = (props) => {
                                             <h3 >{ground.name} </h3>
                                             <div className='row'>
                                                 <div className='col md-6'>
-                                                    <img style={{ borderRadius: '10px' }} width='600' height='300' alt={ground.name} src={`${BASE_URL}/images/${ground.groundPicture}`} />
+                                                    <img style={{ borderRadius: '10px' }} width='600' height='300' alt={ground.name} src={ground.groundPicture} />
                                                 </div>
                                                 <div className='col md-6' style={{ borderRadius: '10px', backgroundColor: '#f0f0f0', border: '2px solid #ccc', padding: '50px', marginRight: '150px' }}>
                                                     <div>
@@ -139,3 +139,9 @@ const EditUsersGroundDetails = (props) => {
 }
 
 export default EditUsersGroundDetails
+
+
+
+
+
+{/* <img style={{ borderRadius: '10px' }} width='600' height='300' alt={ground.name} src={`${BASE_URL}/images/${ground.groundPicture}`} /> */}

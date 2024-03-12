@@ -101,34 +101,38 @@ const ShowFollowers = () => {
                 >
                     <h3 style={{ marginLeft: '40px', marginTop: '20px' }}>All people following you </h3>
                     {
-                        followers.map((user) => {
-                            return (
-                                <Box
-                                    marginTop='10px'
-                                    marginBottom='10px'
-                                    marginLeft='20px'
-                                    width='520px'
-                                    height={30}
-                                    paddingLeft='7px'
-                                    h='40px'
-                                    key={user.id}
-                                    bg='gray.100'
-                                >
-                                    <span
-                                        style={{
-                                            marginLeft: '10px'
-                                        }}
-                                    >{user.username}</span>
-                                    {/* <Link to='/list/players'>
-                                    <Button marginLeft={10} colorScheme='green'>view</Button>
-                                </Link> */}
-                                    <Button
-                                        onClick={() => handleFollowerRemove(user.id)}
-                                        marginLeft={10} colorScheme='red'> remove follower</Button>
-                                </Box>
-                            )
-
-                        })
+                        ( followers.length > 0 ? (
+                            followers.map((user) => {
+                                return (
+                                    <Box
+                                        marginTop='10px'
+                                        marginBottom='10px'
+                                        marginLeft='20px'
+                                        width='520px'
+                                        height={30}
+                                        paddingLeft='7px'
+                                        h='40px'
+                                        key={user.id}
+                                        bg='gray.100'
+                                    >
+                                        <span
+                                            style={{
+                                                marginLeft: '10px'
+                                            }}
+                                        >{user.username}</span>
+                                        {/* <Link to='/list/players'>
+                                        <Button marginLeft={10} colorScheme='green'>view</Button>
+                                    </Link> */}
+                                        <Button
+                                            onClick={() => handleFollowerRemove(user.id)}
+                                            marginLeft={10} colorScheme='red'> remove follower</Button>
+                                    </Box>
+                                )
+    
+                            })
+                        ) : (
+                            <span> No followers .</span>
+                        ))
                     }
                 </VStack>
                 <VStack
@@ -143,34 +147,38 @@ const ShowFollowers = () => {
                 >
                     <h3 style={{ marginLeft: '40px', marginTop: '20px' }} >People you are following</h3>
                     {
-                        following.map((user) => {
-                            return (
-                                <Box
-                                    marginTop='10px'
-                                    marginBottom='10px'
-                                    marginLeft='20px'
-                                    width='520px'
-                                    height={30}
-                                    paddingLeft='7px'
-                                    h='40px'
-                                    key={user.id}
-                                    bg='gray.100'
-                                >
-                                    <span
-                                        style={{
-                                            marginLeft: '10px'
-                                        }}
-                                    >{user.username}</span>
-                                    {/* <Link to='/list/players'>
-                                    <Button marginLeft={10} colorScheme='green'>view</Button>
-                                </Link> */}
-                                    <Button
-                                        onClick={() => handleFollowingRemove(user.id)}
-                                        marginLeft={10} colorScheme='red'> remove following</Button>
-                                </Box>
-                            )
-
-                        })
+                        (following.length > 0 ? (
+                            following.map((user) => {
+                                return (
+                                    <Box
+                                        marginTop='10px'
+                                        marginBottom='10px'
+                                        marginLeft='20px'
+                                        width='520px'
+                                        height={30}
+                                        paddingLeft='7px'
+                                        h='40px'
+                                        key={user.id}
+                                        bg='gray.100'
+                                    >
+                                        <span
+                                            style={{
+                                                marginLeft: '10px'
+                                            }}
+                                        >{user.username}</span>
+                                        {/* <Link to='/list/players'>
+                                        <Button marginLeft={10} colorScheme='green'>view</Button>
+                                    </Link> */}
+                                        <Button
+                                            onClick={() => handleFollowingRemove(user.id)}
+                                            marginLeft={10} colorScheme='red'> remove following</Button>
+                                    </Box>
+                                )
+    
+                            })
+                        ) : (
+                            <span> You are following no one !</span>
+                        ))
                     }
                 </VStack>
             </SimpleGrid>
