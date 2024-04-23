@@ -71,12 +71,12 @@ const MyChats = (props) => {
                 w='100%'
                 h='100%'
                 borderRadius='lg'
-                overflowY='hidden'
+                overflowY='auto'
             >
                 {
                     chats ? (
                         <Stack 
-                            overflowY='scroll'
+                            // overflowY='scroll'
                         >
                             {
                                 chats.map((chat) => {
