@@ -66,7 +66,7 @@ https://github.com/chauhanAditya24/scout/assets/138465775/90040b3d-3e9a-49d8-bf8
   - Role management is implemented.
 - Player's Module
   - Authenticated players can perform CURD operations on the players module.
-  - Authenticated players can interact with other player with the help of whatsapp.
+  - Authenticated players can interact with other player with the help of whatsapp/inbuilt messaging services.
   - Authenticated players can book properties/grounds.
   - Authenticated players can cancel their bookings.
 - Owner's Module
@@ -83,11 +83,13 @@ https://github.com/chauhanAditya24/scout/assets/138465775/90040b3d-3e9a-49d8-bf8
 - Pagination
   - PLayers and Owners all can be listed in a page format with specific users in a particular page.
 - Search Bar
-  - Search bar is available to the admin to find a specific user.
+  - Search bar is available to the users to find a specific user.
 - Slot validation
   - A player desire to book a slot of a ground/property can check the availablity with comparision of date and time for a particular property.
+  - After slot validation users can book 
 - Connection
   - Users can connect with each other on a single click via whatsapp.
+  - Users can contact each other using the inbuilt messaging services.
 
 ### Backend 
   - [scout-backend](https://github.com/chauhanAditya24/scout-backend)
