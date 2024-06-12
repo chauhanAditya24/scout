@@ -1,4 +1,7 @@
 # SCOUT ⚽🏀🏐🎱🏏🏓🎾
+
+https://scouttt.netlify.app/
+
 Scout is a full-stack app, where primary objective of the project was to develop a website that facilitates the connection of sports enthusiasts with others who share their passion in close proximity or within a different city. This platform was designed to enable users to arrange sporting activities collaboratively. Furthermore, it offered a registration feature for ground and turf owners to list their facilities, allowing users to reserve them for their matches and events.
 ## 🛠 Tech Stack - (MERN)
 - 💻 JavaScript | ES6
