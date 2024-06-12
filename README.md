@@ -13,13 +13,15 @@ https://github.com/chauhanAditya24/scout/assets/138465775/572a199a-6900-4a73-8f5
 
 ---
 - Owner
-
-https://github.com/chauhanAditya24/scout/assets/138465775/2c8189fc-fc07-4258-8795-1fb1cc91f823
+  https://github.com/chauhanAditya24/scout/assets/138465775/d6a26675-ae92-4ecd-a837-38ffa2b6a6ea
 
 ---
 - Admin
 
-https://github.com/chauhanAditya24/scout/assets/138465775/320255ad-c563-4e55-a02d-74f77cd6adc4
+  https://github.com/chauhanAditya24/scout/assets/138465775/89068407-f504-49a5-bd82-5bebf64e1c19
+
+- Detail's Update
+  
 
 ---
 ### Features
