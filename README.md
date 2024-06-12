@@ -13,15 +13,41 @@ https://github.com/chauhanAditya24/scout/assets/138465775/572a199a-6900-4a73-8f5
 
 ---
 - Owner
+  
   https://github.com/chauhanAditya24/scout/assets/138465775/d6a26675-ae92-4ecd-a837-38ffa2b6a6ea
 
 ---
 - Admin
 
   https://github.com/chauhanAditya24/scout/assets/138465775/89068407-f504-49a5-bd82-5bebf64e1c19
-
-- Detail's Update
   
+---
+- Detail's Update
+
+  https://github.com/chauhanAditya24/scout/assets/138465775/2962e2d1-f08a-4d11-84e0-64fbb6bc0f7a
+
+---
+
+- Booking
+
+https://github.com/chauhanAditya24/scout/assets/138465775/90040b3d-3e9a-49d8-bf8b-61d0bcbc52f7
+
+- Email and Booking List
+
+  ![email_confirmation](https://github.com/chauhanAditya24/scout/assets/138465775/55a855fb-7f0b-4fd1-b20d-4962b19bb2fa)
+![booking list](https://github.com/chauhanAditya24/scout/assets/138465775/f76472d8-e356-48af-bfe6-3515c001bb57)
+
+  
+---
+
+- Messaging Feature
+
+  https://github.com/chauhanAditya24/scout/assets/138465775/06163f2f-155f-448e-90d0-4ced3b42ae82
+
+- Group Chat
+
+  https://github.com/chauhanAditya24/scout/assets/138465775/94c5ed9d-e25c-4aa2-bebe-e69e89995235
+
 
 ---
 ### Features
